@@ -1,4 +1,4 @@
-FROM node:18 as build
+FROM node:18 AS build
 
 ARG THEME
 
@@ -14,7 +14,7 @@ RUN mkdir -p themes && \
     echo "module.exports = require('./etc/config');" > config.js && \
     if [ ! -z "$THEME" ] ; then cd themes && git clone ${THEME} ; fi
 
-FROM node:18 as main
+FROM node:18 AS main
 
 LABEL MAINTAINER="Future Internet Consulting and Development Solutions S.L."
 
@@ -30,5 +30,7 @@ COPY ./docker/getConfig.js /opt/business-ecosystem-logic-proxy
 EXPOSE 8004
 
 HEALTHCHECK CMD curl --fail http://localhost:8004/version || exit 1
+
+COPY ./docker/proxy-themes/bae-frontend /opt/business-ecosystem-logic-proxy/portal/bae-frontend
 
 ENTRYPOINT ["/entrypoint.sh"]
