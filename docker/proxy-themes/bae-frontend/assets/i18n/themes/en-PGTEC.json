@@ -1,0 +1,13 @@
+{
+  "DASHBOARD": {
+    "_header": "PGTEC: Platform for the Management of Early Prevention of Climate Emergencies.",
+    "_subheader": "Marketplace"
+  },
+  "FEEDBACK": {
+    "_tap": "Tap the stars below to rate the service:",
+    "_write": "Write your feedback here:",
+    "_send": "Send",
+    "_thanks": "Thank you for contacting.",
+    "_footer_title": "How would you rate your overall experience? "
+  }
+}
