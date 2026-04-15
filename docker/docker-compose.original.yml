@@ -8,13 +8,19 @@ services:
             - ./proxy-data:/data/db
 
     proxy:
-        image: fiware/biz-ecosystem-logic-proxy:v0.1.3
+        image: fiware/biz-ecosystem-logic-proxy:custom
         links:
             - mongo
         depends_on:
             - mongo
         ports:
             - 8000:8000
+        volumes:
+            # - ./proxy-conf:/business-ecosystem-logic-proxy/etc  # To be used when congiguring the system with a config file provided in the volume
+            # - ./proxy-indexes:/business-ecosystem-logic-proxy/indexes  # To be used only for locan indexes
+            - ./proxy-themes:/business-ecosystem-logic-proxy/themes
+            - ./proxy-static:/business-ecosystem-logic-proxy/static
+            - ./proxy-locales:/business-ecosystem-logic-proxy/locales
         environment:
             - NODE_ENV=development  # Deployment in development or in production
             - COLLECT=True  # Execute the collect static command on startup
@@ -33,10 +39,10 @@ services:
             - BAE_LP_OAUTH2_CLIENT_ID=id  # OAuth2 Client ID of the BAE applicaiton
             - BAE_LP_OAUTH2_CLIENT_SECRET=secret  # OAuth Client Secret of the BAE application
             - BAE_LP_OAUTH2_CALLBACK=http://proxy.docker:8004/auth/fiware/callback  # Callback URL for receiving the access tokens
-            - BAE_LP_OAUTH2_ADMIN_ROLE=admin  # Role defined in the IDM client app for admins of the BAE
-            - BAE_LP_OAUTH2_SELLER_ROLE=seller  # Role defined in the IDM client app for sellers of the BAE
-            - BAE_LP_OAUTH2_CUSTOMER_ROLE=customer  # Role defined in the IDM client app for customers of the BAE
-            - BAE_LP_OAUTH2_ORG_ADMIN_ROLE=orgAdmin  # Role defined in the IDM client app for organization admins of the BAE
+            - BAE_LP_OAUTH2_ADMIN_ROLE=admin  # Role defined in the IDM client app for admins of the BAE 
+            - BAE_LP_OAUTH2_SELLER_ROLE=seller  # Role defined in the IDM client app for sellers of the BAE 
+            - BAE_LP_OAUTH2_CUSTOMER_ROLE=customer  # Role defined in the IDM client app for customers of the BAE 
+            - BAE_LP_OAUTH2_ORG_ADMIN_ROLE=orgAdmin  # Role defined in the IDM client app for organization admins of the BAE 
             - BAE_LP_OAUTH2_IS_LEGACY=false  # Whether the used FIWARE IDM is version 6 or lower
 
             - BAE_LP_THEME=PGTEC  # If provided custom theme to be used by the web site, it must be included in themes volume
@@ -58,4 +64,3 @@ services:
             # - BAE_LP_ENDPOINT_CATALOG_HOST=apis.docker
             # - BAE_LP_ENDPOINT_CATALOG_SECURED=false
             # ...
-            - BAE_LP_DATASPACE_ENABLED=true  # Whether the dataspaces management is enabled in the BAE
