@@ -30,8 +30,8 @@ COPY ./docker/proxy-themes/bae-frontend /opt/business-ecosystem-logic-proxy/port
 
 
 COPY ./docker/proxy-themes /opt/business-ecosystem-logic-proxy/themes
-COPY ./docker/proxy-static /opt/business-ecosystem-logic-proxy/static
-COPY ./docker/proxy-locales /opt/business-ecosystem-logic-proxy/locales
+# COPY ./docker/proxy-static /opt/business-ecosystem-logic-proxy/static
+# COPY ./docker/proxy-locales /opt/business-ecosystem-logic-proxy/locales
 
 EXPOSE 8004
 
