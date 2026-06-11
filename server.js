@@ -321,7 +321,13 @@ if (config.siop.enabled) {
         })
 
         app.get('/auth/' + config.siop.provider + '/request.jwt', (req, res) => {
-            res.send(buildRequestJWT(config.siop))
+            const state = req.query.state;
+            if (state) {
+                // La wallet sigue este request_uri → redirigir al JWT completo del verifier
+                res.redirect(302, config.siop.verifierHost + '/api/v1/request/' + state);
+            } else {
+                res.send(buildRequestJWT(config.siop));
+            }
         })
     }
 
