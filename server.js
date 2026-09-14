@@ -353,6 +353,38 @@ if (config.siop.enabled) {
             });
             res.redirect(302, `${config.siop.walletUrl.replace(/\/$/, '')}/authorize?${params.toString()}`);
         });
+
+        // Página de acceso con el botón "Entrar con certificado" (además del
+        // acceso habitual con cartera). Sirve como punto de entrada visible al
+        // segundo modo de login sin tener que tocar el frontend Angular.
+        app.get('/auth/' + config.siop.provider + '/login', (req, res) => {
+            res.type('html').send(`<!doctype html><html lang="es"><head><meta charset="utf-8">
+<title>Acceso al marketplace</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{--bg:#f4f6fb;--card:#fff;--fg:#1c2230;--muted:#5b6472;--line:#e4e8f0;--accent:#2c5cff}
+@media (prefers-color-scheme:dark){:root{--bg:#0f131b;--card:#181d29;--fg:#e7ebf3;--muted:#98a2b3;--line:#28303f;--accent:#6b8bff}}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px;max-width:380px;width:calc(100% - 32px);box-shadow:0 4px 24px rgba(0,0,0,.06);text-align:center}
+h1{font-size:1.2rem;margin:.2rem 0 .1rem}p{color:var(--muted);font-size:.9rem;margin:.3rem 0 1.2rem}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px 16px;border-radius:10px;border:0;font-size:.95rem;font-weight:600;text-decoration:none;cursor:pointer}
+.primary{background:var(--accent);color:#fff}
+.link{display:inline-block;margin-top:14px;color:var(--muted);font-size:.85rem;text-decoration:none}
+.link:hover{color:var(--fg)}
+svg{width:20px;height:20px}
+</style></head><body>
+<div class="card">
+  <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" style="width:40px;height:40px"><path d="M12 2l8 3v6c0 5-3.5 8-8 11-4.5-3-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg>
+  <h1>Acceso al marketplace</h1>
+  <p>Identifícate con tu certificado digital (FNMT).</p>
+  <a class="btn primary" href="/auth/${config.siop.provider}/cert-login">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h6M7 13h10M7 17h4"/></svg>
+    Entrar con certificado digital
+  </a>
+  <a class="link" href="/">Volver al acceso con wallet</a>
+</div>
+</body></html>`);
+        });
     }
 
     idps['local'] = siopAuth
