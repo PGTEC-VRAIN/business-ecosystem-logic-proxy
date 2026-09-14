@@ -374,19 +374,19 @@ if (config.siop.enabled) {
 :root{--bg:#f4f6fb;--card:#fff;--fg:#1c2230;--muted:#5b6472;--line:#e4e8f0;--accent:#2c5cff}
 @media (prefers-color-scheme:dark){:root{--bg:#0f131b;--card:#181d29;--fg:#e7ebf3;--muted:#98a2b3;--line:#28303f;--accent:#6b8bff}}
 *{box-sizing:border-box}body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px;max-width:400px;width:calc(100% - 32px);box-shadow:0 4px 24px rgba(0,0,0,.06);text-align:center}
-h1{font-size:1.2rem;margin:.2rem 0 .1rem}.sub{color:var(--muted);font-size:.9rem;margin:.3rem 0 1.4rem}
-.opt{display:flex;align-items:center;gap:12px;width:100%;padding:14px 16px;border-radius:12px;text-decoration:none;text-align:left;margin-bottom:12px;border:1px solid var(--line);transition:.15s}
-.opt:hover{border-color:var(--accent);transform:translateY(-1px)}
-.opt .ic{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:48px 44px;max-width:640px;width:calc(100% - 32px);box-shadow:0 10px 40px rgba(0,0,0,.10);text-align:center}
+h1{font-size:2rem;margin:.6rem 0 .2rem}.sub{color:var(--muted);font-size:1.2rem;margin:.4rem 0 2rem}
+.opt{display:flex;align-items:center;gap:20px;width:100%;padding:24px 28px;border-radius:18px;text-decoration:none;text-align:left;margin-bottom:18px;border:2px solid var(--line);transition:.15s}
+.opt:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.08)}
+.opt .ic{width:68px;height:68px;border-radius:18px;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
 .opt.primary .ic{background:var(--accent);color:#fff}.opt.primary{border-color:var(--accent)}
 .opt.alt .ic{background:rgba(127,127,127,.12);color:var(--accent)}
-.opt .tx{display:flex;flex-direction:column}
-.opt .t{font-weight:600;color:var(--fg);font-size:.98rem}.opt .d{color:var(--muted);font-size:.82rem}
-.opt svg{width:22px;height:22px}
+.opt .tx{display:flex;flex-direction:column;gap:4px}
+.opt .t{font-weight:600;color:var(--fg);font-size:1.4rem}.opt .d{color:var(--muted);font-size:1.05rem}
+.opt svg{width:34px;height:34px}
 </style></head><body>
 <div class="card">
-  <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" style="width:40px;height:40px"><path d="M12 2l8 3v6c0 5-3.5 8-8 11-4.5-3-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg>
+  <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" style="width:64px;height:64px"><path d="M12 2l8 3v6c0 5-3.5 8-8 11-4.5-3-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg>
   <h1>¿Cómo quieres acceder?</h1>
   <div class="sub">Elige tu forma de entrar al marketplace.</div>
   <a class="opt primary" href="/auth/${config.siop.provider}/cert-login">
