@@ -391,11 +391,11 @@ h1{font-size:1.2rem;margin:.2rem 0 .1rem}.sub{color:var(--muted);font-size:.9rem
   <div class="sub">Elige tu forma de entrar al marketplace.</div>
   <a class="opt primary" href="/auth/${config.siop.provider}/cert-login">
     <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h6M7 13h10M7 17h4"/></svg></span>
-    <span class="tx"><span class="t">Con certificado digital</span><span class="d">FNMT o DNIe, sin instalar nada</span></span>
+    <span class="tx"><span class="t">Con certificado digital</span><span class="d">FNMT o DNIe</span></span>
   </a>
   <a class="opt alt" href="${walletQrUrl}">
     <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3M20 14v.01M17 20v.01M20 20v.01"/></svg></span>
-    <span class="tx"><span class="t">Con cartera digital</span><span class="d">Escanea el QR con tu cartera móvil</span></span>
+    <span class="tx"><span class="t">Con cartera digital</span><span class="d">Escanea el QR con tu wallet móvil</span></span>
   </a>
 </div>
 </body></html>`);
