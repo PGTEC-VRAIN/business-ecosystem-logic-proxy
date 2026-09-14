@@ -354,10 +354,19 @@ if (config.siop.enabled) {
             res.redirect(302, `${config.siop.walletUrl.replace(/\/$/, '')}/authorize?${params.toString()}`);
         });
 
-        // Página de acceso con el botón "Entrar con certificado" (además del
-        // acceso habitual con cartera). Sirve como punto de entrada visible al
-        // segundo modo de login sin tener que tocar el frontend Angular.
+        // Página de acceso con las DOS formas de entrar, para que cada persona
+        // elija: (1) con certificado digital (wallet custodiada) y (2) con la
+        // cartera móvil por QR (flujo tradicional del verifier). El botón de
+        // login del marketplace redirige aquí (bundle: onLoginClick).
         app.get('/auth/' + config.siop.provider + '/login', (req, res) => {
+            // URL del flujo tradicional (QR), la misma que armaba onLoginClick.
+            const state = uuidv4();
+            const nonce = uuidv4();
+            const origin = 'https://' + req.get('host');
+            const reqUri = encodeURIComponent(origin + config.siop.requestUri);
+            const walletQrUrl = config.siop.verifierHost + config.siop.verifierQRCodePath +
+                '?state=' + state + '&client_id=' + encodeURIComponent(config.siop.clientID) +
+                '&response_type=code&request_uri=' + reqUri + '&scope=openid%20learcredential&nonce=' + nonce;
             res.type('html').send(`<!doctype html><html lang="es"><head><meta charset="utf-8">
 <title>Acceso al marketplace</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -365,23 +374,29 @@ if (config.siop.enabled) {
 :root{--bg:#f4f6fb;--card:#fff;--fg:#1c2230;--muted:#5b6472;--line:#e4e8f0;--accent:#2c5cff}
 @media (prefers-color-scheme:dark){:root{--bg:#0f131b;--card:#181d29;--fg:#e7ebf3;--muted:#98a2b3;--line:#28303f;--accent:#6b8bff}}
 *{box-sizing:border-box}body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px;max-width:380px;width:calc(100% - 32px);box-shadow:0 4px 24px rgba(0,0,0,.06);text-align:center}
-h1{font-size:1.2rem;margin:.2rem 0 .1rem}p{color:var(--muted);font-size:.9rem;margin:.3rem 0 1.2rem}
-.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px 16px;border-radius:10px;border:0;font-size:.95rem;font-weight:600;text-decoration:none;cursor:pointer}
-.primary{background:var(--accent);color:#fff}
-.link{display:inline-block;margin-top:14px;color:var(--muted);font-size:.85rem;text-decoration:none}
-.link:hover{color:var(--fg)}
-svg{width:20px;height:20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px;max-width:400px;width:calc(100% - 32px);box-shadow:0 4px 24px rgba(0,0,0,.06);text-align:center}
+h1{font-size:1.2rem;margin:.2rem 0 .1rem}.sub{color:var(--muted);font-size:.9rem;margin:.3rem 0 1.4rem}
+.opt{display:flex;align-items:center;gap:12px;width:100%;padding:14px 16px;border-radius:12px;text-decoration:none;text-align:left;margin-bottom:12px;border:1px solid var(--line);transition:.15s}
+.opt:hover{border-color:var(--accent);transform:translateY(-1px)}
+.opt .ic{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.opt.primary .ic{background:var(--accent);color:#fff}.opt.primary{border-color:var(--accent)}
+.opt.alt .ic{background:rgba(127,127,127,.12);color:var(--accent)}
+.opt .tx{display:flex;flex-direction:column}
+.opt .t{font-weight:600;color:var(--fg);font-size:.98rem}.opt .d{color:var(--muted);font-size:.82rem}
+.opt svg{width:22px;height:22px}
 </style></head><body>
 <div class="card">
   <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" style="width:40px;height:40px"><path d="M12 2l8 3v6c0 5-3.5 8-8 11-4.5-3-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg>
-  <h1>Acceso al marketplace</h1>
-  <p>Identifícate con tu certificado digital (FNMT).</p>
-  <a class="btn primary" href="/auth/${config.siop.provider}/cert-login">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h6M7 13h10M7 17h4"/></svg>
-    Entrar con certificado digital
+  <h1>¿Cómo quieres acceder?</h1>
+  <div class="sub">Elige tu forma de entrar al marketplace.</div>
+  <a class="opt primary" href="/auth/${config.siop.provider}/cert-login">
+    <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h6M7 13h10M7 17h4"/></svg></span>
+    <span class="tx"><span class="t">Con certificado digital</span><span class="d">FNMT o DNIe, sin instalar nada</span></span>
   </a>
-  <a class="link" href="/">Volver al acceso con wallet</a>
+  <a class="opt alt" href="${walletQrUrl}">
+    <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3M20 14v.01M17 20v.01M20 20v.01"/></svg></span>
+    <span class="tx"><span class="t">Con cartera digital</span><span class="d">Escanea el QR con tu cartera móvil</span></span>
+  </a>
 </div>
 </body></html>`);
         });
