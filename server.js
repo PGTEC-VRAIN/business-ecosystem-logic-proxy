@@ -331,6 +331,30 @@ if (config.siop.enabled) {
         })
     }
 
+    // ── Segundo modo de login: con certificado digital (wallet custodiada) ────
+    // Se añade ADEMÁS del flujo tradicional con verifier (QR / same-device), que
+    // sigue intacto. Manda el navegador a la wallet custodiada, que identifica a
+    // la persona por su certificado, obtiene la credencial del emisor (p.ej.
+    // AVAMET) y la presenta al verifier, devolviendo el navegador a
+    // /auth/vc/callback?state=..&code=.. — el mismo callback del flujo normal.
+    // Requiere config.siop.walletUrl y que callbackURL sea la URL externa del
+    // callback (la wallet redirige el navegador ahí).
+    if (config.siop.walletUrl) {
+        app.get('/auth/' + config.siop.provider + '/cert-login', (req, res) => {
+            const state = uuidv4();
+            const nonce = uuidv4();
+            const params = new URLSearchParams({
+                state,
+                nonce,
+                client_id: config.siop.clientID,
+                redirect_uri: config.siop.callbackURL,
+                scope: config.siop.walletScope,
+                verifier: config.siop.walletVerifierKey
+            });
+            res.redirect(302, `${config.siop.walletUrl.replace(/\/$/, '')}/authorize?${params.toString()}`);
+        });
+    }
+
     idps['local'] = siopAuth
 }
 

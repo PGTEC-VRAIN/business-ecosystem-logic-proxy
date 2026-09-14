@@ -101,6 +101,14 @@ config.siop = {
     verifierQRCodePath: process.env.BAE_LP_SIOP_VERIFIER_QRCODE_PATH || '/api/v1/loginQR',
     verifierTokenPath: process.env.BAE_LP_SIOP_VERIFIER_TOKEN_PATH || '/token',
     verifierJWKSPath: process.env.BAE_LP_SIOP_VERIFIER_JWKS_PATH || '/.well-known/jwks',
+    // Wallet custodiada: URL base del servicio de wallet (login con certificado
+    // digital). Si está vacía, el modo "login con certificado" queda desactivado
+    // y solo funciona el flujo tradicional con el verifier (QR / same-device).
+    walletUrl: process.env.BAE_LP_WALLET_URL || '',
+    // did/clave del participante que actúa de emisor de la credencial vía wallet,
+    // y clave del verifier en la config de la wallet (por defecto "marketplace").
+    walletVerifierKey: process.env.BAE_LP_WALLET_VERIFIER_KEY || 'marketplace',
+    walletScope: process.env.BAE_LP_WALLET_SCOPE || 'openid learcredential',
     allowedRoles: process.env.BAE_LP_SIOP_ALLOWED_ROLES
         ? process.env.BAE_LP_SIOP_ALLOWED_ROLES.split(',')
         : {
