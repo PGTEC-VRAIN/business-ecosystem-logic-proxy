@@ -359,14 +359,19 @@ if (config.siop.enabled) {
         // cartera móvil por QR (flujo tradicional del verifier). El botón de
         // login del marketplace redirige aquí (bundle: onLoginClick).
         app.get('/auth/' + config.siop.provider + '/login', (req, res) => {
-            // URL del flujo tradicional (QR), la misma que armaba onLoginClick.
+            // URL del flujo tradicional (QR). NO se manda request_uri: si se manda, el
+            // verifier va a buscar esa URL para armar el QR y la cartera acaba recibiendo
+            // el JWT mínimo de /auth/vc/request.jwt, sin nonce, response_uri ni la
+            // credencial que se pide, y lo rechaza ("Could not process the information
+            // request"). Sin request_uri, el verifier genera su propia petición OID4VP
+            // (response_type=vp_token, response_mode=direct_post, dcql_query) y la sirve
+            // en /api/v1/request/{state}, que es lo que la cartera sabe leer.
             const state = uuidv4();
             const nonce = uuidv4();
-            const origin = 'https://' + req.get('host');
-            const reqUri = encodeURIComponent(origin + config.siop.requestUri);
             const walletQrUrl = config.siop.verifierHost + config.siop.verifierQRCodePath +
                 '?state=' + state + '&client_id=' + encodeURIComponent(config.siop.clientID) +
-                '&response_type=code&request_uri=' + reqUri + '&scope=openid%20learcredential&nonce=' + nonce;
+                '&redirect_uri=' + encodeURIComponent(config.siop.callbackURL) +
+                '&scope=openid%20learcredential&nonce=' + nonce + '&request_mode=byReference';
             res.type('html').send(`<!doctype html><html lang="es"><head><meta charset="utf-8">
 <title>Acceso al marketplace</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
