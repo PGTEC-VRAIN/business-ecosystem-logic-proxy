@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="560" viewBox="0 0 480 560">
+  <defs>
+    <clipPath id="card"><rect width="480" height="560" rx="24"/></clipPath>
+  </defs>
+  <g clip-path="url(#card)">
+    <rect width="480" height="560" fill="#0B0E21"/>
+
+    <!-- Tiles: 3 x 3, 128 x 154, gap 16, padding 32 -->
+    <rect x="32" y="32" width="128" height="154" rx="18" fill="#3634E8" fill-opacity="0.18"/>
+    <rect x="176" y="32" width="128" height="154" rx="18" fill="#33D0E6" fill-opacity="0.14"/>
+    <rect x="320" y="32" width="128" height="154" rx="18" fill="#F8CD2B" fill-opacity="0.14"/>
+    <rect x="32" y="202" width="128" height="154" rx="18" fill="#A5F0FA" fill-opacity="0.1"/>
+    <rect x="176" y="202" width="128" height="154" rx="18" fill="#3634E8"/>
+    <rect x="320" y="202" width="128" height="154" rx="18" fill="#EE7306" fill-opacity="0.16"/>
+    <rect x="32" y="372" width="128" height="154" rx="18" fill="#F8CD2B" fill-opacity="0.1"/>
+    <rect x="176" y="372" width="128" height="154" rx="18" fill="#6AB02E" fill-opacity="0.16"/>
+    <rect x="320" y="372" width="128" height="154" rx="18" fill="#F28B82" fill-opacity="0.14"/>
+
+    <!-- Icons: 24px grid scaled to 44px, centred at (tile x + 64, tile y + 66) -->
+    <g fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <g transform="translate(74 66) scale(1.8333)" stroke="#8A88FF">
+        <path d="M4 14.9A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 2.5 8.2"/><path d="M16 14v6M8 14v6M12 16v6"/>
+      </g>
+      <g transform="translate(218 66) scale(1.8333)" stroke="#33D0E6">
+        <path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/>
+      </g>
+      <g transform="translate(362 66) scale(1.8333)" stroke="#F8CD2B">
+        <path d="M14 4v10.5a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/>
+      </g>
+      <g transform="translate(74 236) scale(1.8333)" stroke="#A5F0FA">
+        <path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2M9.6 4.6A2 2 0 1 1 11 8H2M12.6 19.4A2 2 0 1 0 14 16H2"/>
+      </g>
+      <g transform="translate(218 236) scale(1.8333)" stroke="#FFFFFF">
+        <ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/>
+      </g>
+      <g transform="translate(362 236) scale(1.8333)" stroke="#EE7306">
+        <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.4-.5-2-1-3-1.1-2.1-.2-4 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.2.4-2.3 1-3a2.5 2.5 0 0 0 2.5 2.5Z"/>
+      </g>
+      <g transform="translate(74 406) scale(1.8333)" stroke="#F8CD2B">
+        <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+      </g>
+      <g transform="translate(218 406) scale(1.8333)" stroke="#6AB02E">
+        <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10Z"/><path d="M2 21c0-3 1.9-5.4 5.1-6C9.5 14.5 12 13 13 12"/>
+      </g>
+      <g transform="translate(362 406) scale(1.8333)" stroke="#F28B82">
+        <path d="M13 7 9 3 5 7l4 4M17 11l4 4-4 4-4-4M8 12l4 4 6-6-4-4Z"/><path d="m16 8 3-3M9 21a6 6 0 0 0-6-6"/>
+      </g>
+    </g>
+
+    <!-- Labels -->
+    <g font-family="Inter, Arial, sans-serif" font-size="13" font-weight="600" text-anchor="middle" fill="#C8CCE2">
+      <text x="96" y="164">Lluvia</text>
+      <text x="240" y="164">Ríos</text>
+      <text x="384" y="164">Temperatura</text>
+      <text x="96" y="334">Viento</text>
+      <text x="240" y="334" fill="#FFFFFF" font-weight="700">Espacio de datos</text>
+      <text x="384" y="334">Incendios</text>
+      <text x="96" y="504">Sequía</text>
+      <text x="240" y="504">Vegetación</text>
+      <text x="384" y="504">Satélite</text>
+    </g>
+  </g>
+  <rect x="0.75" y="0.75" width="478.5" height="558.5" rx="23.5" fill="none" stroke="#2C3155" stroke-width="1.5"/>
+</svg>

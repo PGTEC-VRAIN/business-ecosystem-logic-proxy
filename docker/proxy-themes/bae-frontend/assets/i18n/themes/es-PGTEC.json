@@ -19,7 +19,7 @@
     "_search": "Buscar",
     "_search_ph": "Busca datos meteorológicos, hidrológicos, proveedores...",
     "landing": {
-      "_eyebrow": "Espacio de datos de confianza",
+      "_eyebrow": "PGTEC Marketplace",
       "_visit_project": "Web del proyecto",
       "_metrics": "Métricas del marketplace",
       "_verified_services": "servicios publicados",
@@ -42,7 +42,8 @@
       "_benefit3_text": "Datos y servicios basados en los estándares abiertos de FIWARE, listos para integrarse en sistemas de alerta temprana y de gestión de emergencias.",
       "_provider_eyebrow": "Para proveedores",
       "_provider_title": "Publica tus datos en PGTEC",
-      "_provider_text": "Publica datos y servicios en el catálogo, define sus condiciones de uso y mantén el control sobre tus activos. Si tu organización aún no forma parte del espacio de datos, solicita la adhesión."
+      "_provider_text": "Publica datos y servicios en el catálogo, define sus condiciones de uso y mantén el control sobre tus activos. Si tu organización aún no forma parte del espacio de datos, solicita la adhesión.",
+      "_includes": "Incluye"
     },
     "_not_found": "No se han encontrado servicios"
   },

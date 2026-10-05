@@ -14,6 +14,7 @@
   "europeTrademark": "Distributed Open Marketplace for Europe (DOME) Project has received funding from European Union’s Digital Europe Programme under the Grant Agreement No 101084071.",
   "DASHBOARD": {
     "landing": {
+      "_includes": "Incluye",
       "_eyebrow": "Marketplace del espacio de datos",
       "_visit_project": "Web del proyecto",
       "_metrics": "Métricas del marketplace",
