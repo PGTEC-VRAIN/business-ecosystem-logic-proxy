@@ -43,7 +43,13 @@
       "_provider_eyebrow": "For providers",
       "_provider_title": "Publish your data on PGTEC",
       "_provider_text": "Publish data and services in the catalogue, set their terms of use and keep control over your assets. If your organisation is not part of the data space yet, request to join.",
-      "_includes": "Includes"
+      "_includes": "Includes",
+      "_search_examples": [
+        "hourly rainfall in Valencia",
+        "Júcar river flow",
+        "wildfire risk by district",
+        "alerts on the Rambla del Poyo"
+      ]
     },
     "_not_found": "No services found"
   },

@@ -14,6 +14,18 @@
   "europeTrademark": "Distributed Open Marketplace for Europe (DOME) Project has received funding from European Union’s Digital Europe Programme under the Grant Agreement No 101084071.",
   "DASHBOARD": {
     "landing": {
+      "mosaic": {
+        "_label": "Mosaic of climate data types around the data space",
+        "_rain": "Rain",
+        "_rivers": "Rivers",
+        "_temperature": "Temperature",
+        "_wind": "Wind",
+        "_core": "Data space",
+        "_wildfires": "Wildfires",
+        "_drought": "Drought",
+        "_vegetation": "Vegetation",
+        "_satellite": "Satellite"
+      },
       "_includes": "Includes",
       "_eyebrow": "Data Space Marketplace",
       "_visit_project": "Visit project website",

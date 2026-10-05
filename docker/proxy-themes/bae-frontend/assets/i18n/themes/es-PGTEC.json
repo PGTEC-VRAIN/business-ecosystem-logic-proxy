@@ -43,7 +43,13 @@
       "_provider_eyebrow": "Para proveedores",
       "_provider_title": "Publica tus datos en PGTEC",
       "_provider_text": "Publica datos y servicios en el catálogo, define sus condiciones de uso y mantén el control sobre tus activos. Si tu organización aún no forma parte del espacio de datos, solicita la adhesión.",
-      "_includes": "Incluye"
+      "_includes": "Incluye",
+      "_search_examples": [
+        "precipitación horaria en Valencia",
+        "caudal del río Júcar",
+        "riesgo de incendio por comarca",
+        "avisos en la Rambla del Poyo"
+      ]
     },
     "_not_found": "No se han encontrado servicios"
   },
