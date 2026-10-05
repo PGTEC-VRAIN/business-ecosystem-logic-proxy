@@ -1,13 +1,77 @@
 {
+  "europeTrademark": "Funded by the European Union – NextGenerationEU.",
+  "HEADER": {
+    "_brand_title": "PGTEC",
+    "_brand_subtitle": "Data space marketplace",
+    "_marketplace": "PGTEC MARKETPLACE",
+    "_register_here": "Request to join",
+    "_onboarding": "Onboarding",
+    "_home": "Home",
+    "_browse": "Browse",
+    "_services": "Services",
+    "_catalogs": "Providers catalog",
+    "_browse_serv": "Browse services"
+  },
   "DASHBOARD": {
-    "_header": "PGTEC: Platform for the Management of Early Prevention of Climate Emergencies.",
-    "_subheader": "Marketplace"
+    "_header": "Data and services to anticipate climate emergencies",
+    "_subheader": "Discover, compare and consume meteorological, hydrological and environmental data published by the organisations of the PGTEC data space, under clear and verifiable terms of use.",
+    "_browse_serv": "Browse services",
+    "_search": "Search",
+    "_search_ph": "Search meteorological or hydrological data, providers...",
+    "landing": {
+      "_eyebrow": "Trusted data space",
+      "_visit_project": "Project website",
+      "_metrics": "Marketplace metrics",
+      "_verified_services": "published services",
+      "_registered_providers": "registered providers",
+      "_search_label": "Explore the catalogue",
+      "_search_hint": "Type to filter the categories below, or open the full list of services.",
+      "_categories_title": "Browse by category",
+      "_all_services": "All services",
+      "_featured_title": "Featured services",
+      "_see_catalogue": "See the catalogue",
+      "_view_details": "View details",
+      "_about_eyebrow": "About the marketplace",
+      "_about_title": "A single access point to data for climate emergency prevention",
+      "_about_text": "The PGTEC Marketplace is the catalogue of the data space. Member organisations publish meteorological, hydrological and environmental data and services here, so others can discover, compare and consume them through the data space connector.",
+      "_benefit1_title": "Trust by design",
+      "_benefit1_text": "Every organisation joins with a digital identifier and verifiable credentials, so you always know who stands behind each offering.",
+      "_benefit2_title": "Clear terms of use",
+      "_benefit2_text": "Every asset carries the terms of use set by its provider, within the common Governance Framework of the data space.",
+      "_benefit3_title": "Interoperable with FIWARE",
+      "_benefit3_text": "Data and services built on FIWARE open standards, ready to plug into early-warning and emergency management systems.",
+      "_provider_eyebrow": "For providers",
+      "_provider_title": "Publish your data on PGTEC",
+      "_provider_text": "Publish data and services in the catalogue, set their terms of use and keep control over your assets. If your organisation is not part of the data space yet, request to join."
+    },
+    "_not_found": "No services found"
+  },
+  "FOOTER": {
+    "_funding": "Funded by the European Union – NextGenerationEU.",
+    "_agreement": "Membership agreement (PDF)",
+    "_onboarding": "Onboarding portal",
+    "_project": "Project website",
+    "_copyright": "VRAIN · Universitat Politècnica de València"
   },
   "FEEDBACK": {
     "_tap": "Tap the stars below to rate the service:",
     "_write": "Write your feedback here:",
     "_send": "Send",
-    "_thanks": "Thank you for contacting.",
-    "_footer_title": "How would you rate your overall experience? "
+    "_thanks": "Thank you for contacting the PGTEC Marketplace.",
+    "_footer_title": "How would you rate your experience with the PGTEC Marketplace?",
+    "_footer_improve": "How can we improve?"
+  },
+  "BRAND": {
+    "_services_subtitle": "Explore the meteorological, hydrological and environmental data and services published by the members of the PGTEC data space. Search by keyword or narrow the results by category.",
+    "_feedback_recommend": "Based on your recent experience, how likely are you to recommend PGTEC to a colleague or a partner?",
+    "_feedback_improve": "How can we improve PGTEC?",
+    "_verified": "PGTEC verified",
+    "_custom_price_plan": "This offer includes a custom price plan. This implies that the service price plan has been created externally to the PGTEC Marketplace and is entirely determined by the service provider. The final price will be calculated after the product order is submitted to the service provider.",
+    "_replication_marketplaces": "Define in which marketplaces of the PGTEC ecosystem your Product Offering might appear (marketplace operators might not publish your offering, depending on their business choices):",
+    "_replication_only": "Publish only in this marketplace: PGTEC",
+    "_replication_customers": "Define which customers, in the PGTEC ecosystem, will see your Product Offerings:"
+  },
+  "CATALOGS": {
+    "_choose": "Choose one of the catalogues of the data space providers"
   }
 }

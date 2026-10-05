@@ -1,0 +1,41 @@
+{
+  "theme": "pgtec",
+  "siop": {
+    "enabled": false,
+    "isRedirection": false,
+    "pollPath": "",
+    "pollCertPath": "",
+    "clientID": "",
+    "callbackURL": "",
+    "verifierHost": "",
+    "verifierQRCodePath": "",
+    "requestUri": ""
+  },
+  "chat": "",
+  "matomoId": "",
+  "matomoUrl": "",
+  "knowledgeBaseUrl": "",
+  "ticketingUrl": "",
+  "domeTrust": "",
+  "domeAbout": "",
+  "purchaseEnabled": false,
+  "domeRegister": "https://onboarding.pgtec-vrain-dataspace.eu/",
+  "domeRegisterCustomer": "",
+  "domePublish": "",
+  "domeOnboardingGuidelines": "",
+  "domeGuidelines": "",
+  "domeRegistrationForm": "",
+  "defaultId": "",
+  "roles": {
+    "seller": "seller",
+    "customer": "customer",
+    "admin": "admin",
+    "orgAdmin": "orgAdmin",
+    "certifier": "certifier"
+  },
+  "quotesEnabled": false,
+  "tenderingEnabled": false,
+  "dataSpaceEnabled": false,
+  "launchValidationEnabled": false,
+  "aiEnabled": false
+}

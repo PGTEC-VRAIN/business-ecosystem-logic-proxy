@@ -1,8 +1,44 @@
 {
+  "BRAND": {
+    "_services_subtitle": "Explore verified data and services published by providers across the data space. Search by keyword or narrow the results by category.",
+    "_feedback_recommend": "Based on your recent experience, how likely are you to recommend this marketplace to a colleague or a partner?",
+    "_feedback_improve": "How can we improve this marketplace?",
+    "_verified": "Verified",
+    "_custom_price_plan": "This offer includes a custom price plan. This implies that the service price plan has been created externally to the marketplace and is entirely determined by the service provider. The final price will be calculated after the product order is submitted to the service provider.",
+    "_replication_marketplaces": "Define in which marketplaces of the ecosystem your Product Offering might appear (marketplace operators might not publish your offering, depending on their business choices):",
+    "_replication_only": "Publish only in this marketplace",
+    "_replication_customers": "Define which customers, in the ecosystem, will see your Product Offerings:"
+  },
   "_yes": "Yes",
   "_no": "No",
   "europeTrademark": "Distributed Open Marketplace for Europe (DOME) Project has received funding from European Union’s Digital Europe Programme under the Grant Agreement No 101084071.",
   "DASHBOARD": {
+    "landing": {
+      "_eyebrow": "Marketplace del espacio de datos",
+      "_visit_project": "Web del proyecto",
+      "_metrics": "Métricas del marketplace",
+      "_verified_services": "servicios verificados",
+      "_registered_providers": "proveedores registrados",
+      "_search_label": "Explora el catálogo",
+      "_search_hint": "Escribe para filtrar las categorías de abajo o abre la lista completa de servicios.",
+      "_categories_title": "Explora por categoría",
+      "_all_services": "Todos los servicios",
+      "_featured_title": "Servicios destacados",
+      "_see_catalogue": "Ver el catálogo",
+      "_view_details": "Ver detalles",
+      "_about_eyebrow": "Sobre el marketplace",
+      "_about_title": "Un único lugar para encontrar, confiar y compartir datos y servicios",
+      "_about_text": "El marketplace es el catálogo del espacio de datos. Las organizaciones participantes publican aquí conjuntos de datos y servicios digitales para que otras puedan descubrirlos, compararlos y usarlos con condiciones claras y verificables.",
+      "_benefit1_title": "Confianza desde el diseño",
+      "_benefit1_text": "Cada proveedor se une con una identidad verificable basada en credenciales, así sabes siempre quién está detrás de cada oferta y en qué condiciones se comparte.",
+      "_benefit2_title": "Cumplimiento normativo",
+      "_benefit2_text": "Las ofertas incluyen políticas y condiciones de uso explícitas, para alinear la compartición de datos con los requisitos legales y de gobernanza europeos desde el primer día.",
+      "_benefit3_title": "Colaboración más rápida",
+      "_benefit3_text": "Una vez aprobada, tu organización puede publicar sus propios servicios o reutilizar los de otros para lanzar proyectos basados en datos con otros participantes.",
+      "_provider_eyebrow": "Para proveedores",
+      "_provider_title": "Publica tus servicios",
+      "_provider_text": "Documenta funcionalidades, condiciones de uso y tratamiento de datos con las plantillas del marketplace. Una vez aprobados, tus servicios estarán disponibles en los catálogos."
+    },
     "whatsdome": {
       "_title": "What is DOME Marketplace?",
       "_desc": "DOME is the European marketplace that provides a unified environment where trust, compliance, and interoperability form the foundation of how digital services are published, compared, and used across Europe.",
@@ -172,8 +208,8 @@
       "providers": "Registered and verified providers"
     },
     "_title": "DOME Marketplace is out! See what's new",
-    "_header": "Digital Trust to move forward",
-    "_subheader": "Join the first open distributed marketplace ecosystem for cloud, edge & AI services in Europe.",
+    "_header": "Data & AI Services Marketplace for European Smart Cities",
+    "_subheader": "The trusted digital ecosystem of the CitCom.ai project. Discover, compare and publish innovative data and AI services for cities and communities.",
     "_new": "New",
     "_learn_more": "Learn more",
     "_video": "Watch video",
@@ -1657,6 +1693,11 @@
     "forProviders": "For Providers"
   },
   "HEADER": {
+    "_brand_title": "Marketplace",
+    "_brand_subtitle": "Espacio de datos",
+    "_light_mode": "Cambiar a modo claro",
+    "_dark_mode": "Cambiar a modo oscuro",
+    "_onboarding": "Adhesión",
     "contactUs": "Contact us",
     "_browse_serv": "Browse services",
     "_marketplace": "DOME MARKETPLACE",

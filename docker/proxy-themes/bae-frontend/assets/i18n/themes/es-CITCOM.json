@@ -1,0 +1,248 @@
+{
+  "BRAND": {
+    "_services_subtitle": "Explore verified data and AI services published by providers across the CitCom.ai ecosystem. Search by keyword or narrow the results by category.",
+    "_feedback_recommend": "Based on your recent experience, how likely are you to recommend CitCom.ai to a colleague or a partner?",
+    "_feedback_improve": "How can we improve CitCom.ai?",
+    "_verified": "CitCom.ai verified",
+    "_custom_price_plan": "This offer includes a custom price plan. This implies that the service price plan has been created externally to the CitCom.ai Marketplace and is entirely determined by the service provider. The final price will be calculated after the product order is submitted to the service provider.",
+    "_replication_marketplaces": "Define in which marketplaces of the CitCom.ai ecosystem your Product Offering might appear (marketplace operators might not publish your offering, depending on their business choices):",
+    "_replication_only": "Publish only in this marketplace: CitCom.ai",
+    "_replication_customers": "Define which customers, in the CitCom.ai ecosystem, will see your Product Offerings:"
+  },
+  "europeTrademark": "The CitCom.ai project is co-funded by the European Union.",
+  "DASHBOARD": {
+    "landing": {
+      "_eyebrow": "CitCom.ai Marketplace",
+      "_visit_project": "Visit project website",
+      "_metrics": "Marketplace metrics",
+      "_verified_services": "verified services",
+      "_registered_providers": "registered providers",
+      "_search_label": "Explore the catalogue",
+      "_search_hint": "Type to filter the categories below, or open the full list of services.",
+      "_categories_title": "Browse by category",
+      "_all_services": "All services",
+      "_featured_title": "Featured services",
+      "_see_catalogue": "See the catalogue",
+      "_view_details": "View details",
+      "_about_eyebrow": "About the marketplace",
+      "_about_title": "One place to find, trust and share smart-city data and AI",
+      "_about_text": "The CitCom.ai Marketplace is the entry point to the CitCom.ai Testing and Experimentation Facility. Cities, companies and research centres publish datasets, AI models and digital services here, so others can discover, compare and use them under clear and verifiable terms.",
+      "_benefit1_title": "Trust by Design",
+      "_benefit1_text": "Every provider joins with a verifiable, credential-based identity, so you always know who stands behind each offering and under which conditions it is shared.",
+      "_benefit2_title": "Compliance Readiness",
+      "_benefit2_text": "Offerings carry explicit usage policies and terms, helping you align data sharing and AI adoption with European legal and governance requirements from day one.",
+      "_benefit3_title": "Faster Collaboration",
+      "_benefit3_text": "Once approved, your organization can publish its own services or reuse others' to launch data-driven pilots with cities, companies and researchers across Europe.",
+      "_provider_eyebrow": "For providers",
+      "_provider_title": "Publish on CitCom.ai",
+      "_provider_text": "Use CitCom.ai Marketplace templates to document features, compliance and data handling. Once approved, your services become available in the CitCom.ai catalogues."
+    },
+    "whatsdome": {
+      "_title": "What is CitCom.ai Marketplace?",
+      "_desc": "CitCom.ai is the European marketplace that provides a unified environment where trust, compliance, and interoperability form the foundation of how digital services are published, compared, and used across Europe.",
+      "features": {
+        "trusted": {
+          "desc": "CitCom.ai ensures services operate under EU rules for security, data protection, and sovereignty, creating a reliable environment for digital operations across Europe."
+        },
+        "interoperability": {
+          "desc": "CitCom.ai connects multiple marketplaces and providers through shared standards, enabling seamless discovery, integration, and cross-market collaboration."
+        }
+      }
+    },
+    "customers": {
+      "_howItWorksTitle": "How CitCom.ai works",
+      "_steps": {
+        "connect": {
+          "desc": "Procure directly with providers or use CitCom.ai's tools to manage the process end-to-end."
+        }
+      }
+    },
+    "providers": {
+      "_howDomeWorks": "How CitCom.ai works",
+      "features": {
+        "trust": {
+          "desc": "Showcase compliance, transparency, and service quality through CitCom.ai’s verified trust indicators and documentation standards."
+        },
+        "tools": {
+          "title": "Leverage CitCom.ai's<br/>provider tools"
+        }
+      },
+      "steps": {
+        "verify": {
+          "desc": "Use CitCom.ai Marketplace templates to document features, compliance and data handling."
+        },
+        "publish": {
+          "desc": "Once approved, your services become available in the CitCom.ai catalogues."
+        }
+      }
+    },
+    "roadmap": {
+      "title": "Growing the CitCom.ai ecosystem",
+      "subtitle": "CitCom.ai is at an early but active stage, expanding together with customers and providers."
+    },
+    "finalCta": {
+      "title": "Ready to find out what CitCom.ai Marketplace can do for your business?"
+    },
+    "ecosystem": {
+      "_title": "Growing the CitCom.ai Ecosystem",
+      "_subtitle": "CitCom.ai is at an early but active stage, expanding together with customers and providers.",
+      "_milestones": {
+        "_live": {
+          "_title": "CITCOM.AI IS LIVE"
+        }
+      },
+      "_ctaTitle": "Ready to find out what CitCom.ai Marketplace can do for your business?"
+    },
+    "_title": "CitCom.ai Marketplace is out! See what's new",
+    "footer": {
+      "aboutTitle": "About CitCom.ai",
+      "about": "About CitCom.ai"
+    }
+  },
+  "ContactUs": {
+    "hero": {
+      "description": "We are glad you are interested in the CitCom.ai Marketplace! Please share your questions or thoughts with us and we'll get back to you shortly."
+    },
+    "checkboxes": {
+      "marketing": "I agree to receive marketing and commercial communications from CitCom.ai Marketplace."
+    }
+  },
+  "LANDINGPAGE": {
+    "providers": {
+      "trust": {
+        "description": "European buyers increasingly require trusted and compliant digital services. CitCom.ai helps providers turn these expectations into visible commercial advantages."
+      },
+      "whyJoinDome": {
+        "title": "Why join CitCom.ai?"
+      },
+      "goodFit": {
+        "description": "If your value proposition includes compliance, transparency, EU data handling, or digital sovereignty — CitCom.ai strengthens it."
+      },
+      "faqs": {
+        "_items": {
+          "1": {
+            "question": "Am I eligible to become a CitCom.ai Marketplace provider?",
+            "answer": "To join the CitCom.ai Marketplace as a service provider, your organisation must meet the following criteria:<ul class='list-disc pl-6 mt-4 space-y-3'><li><strong>EU/EEA establishment:</strong> Your organisation must be a legally registered entity within the EU/EEA, or have a legal entity established in the EU/EEA (e.g., a subsidiary, branch, or other registered entity).</li><li><strong>Service ownership:</strong> You must offer cloud, edge, or digital services that your organisation owns and operates, not acting solely as a reseller of third-party services.</li><li><strong>B2B/B2G focus:</strong> Your target customers must be businesses, public organisations, or professionals, not individual consumers.</li></ul>"
+          },
+          "2": {
+            "question": "Are my services eligible to be listed on the CitCom.ai Marketplace?",
+            "answer": "Your services are eligible to be listed if they meet the mandatory compliance criteria defined by the CitCom.ai compliance framework.<br><br>CitCom.ai applies the following compliance profiles:<ul class='list-disc pl-6 mt-4 space-y-3'><li><strong>Baseline:</strong> Your offering can be listed with a Baseline status if it meets the mandatory criteria through self-attestation (self-assessed compliance), even if it does not have formal certifications.</li><li><strong>Professional / Professional+:</strong> Your offering may qualify for Professional or Professional+ if it is supported by certified compliance evidence (valid certifications). The level achieved depends on the type and number of valid certifications, in line with CitCom.ai requirements.</li><li><strong>Non-compliant:</strong> If your offering fails one or more mandatory compliance criteria—based on self-attestation and/or certification checks—it is classified as non-compliant and cannot be published in the official CitCom.ai catalogue.</li></ul><br>Services published on CitCom.ai must meet at least the <strong>Baseline</strong> compliance requirements."
+          },
+          "3": {
+            "question": "Do I need to pay a fee to become a CitCom.ai Marketplace provider?",
+            "answer": "No. There is currently no upfront fee to join the CitCom.ai Marketplace.<br><br><em>Please note that CitCom.ai does not intervene in the commercial relationship or service delivery but only enables discovery, evaluation, and transactions between providers and customers.</em>"
+          },
+          "4": {
+            "question": "What information and documentation are required to onboard CitCom.ai as a provider?",
+            "answer": "To onboard as a provider, you will be asked to provide basic organisational details, nominate key roles, and submit supporting documentation for verification.<br><br><strong>Required information</strong><ul class='list-disc pl-6 mt-4 space-y-3'><li><strong>Company information:</strong> Legal name, VAT number, country, city, registered office address, postal code</li><li><strong>Legal Representative information:</strong> Identification and contact details of the individual legally representing the company</li><li><strong>Account Administrator information:</strong> Identification and contact details of the individual responsible for managing the organisation’s account on CitCom.ai (this can also be the same person as the Legal Representative)</li></ul><br><strong>Required documentation</strong><br><br>You have to provide the Account Administrator Appointment form duly signed.<br><br>If the Appointment form is signed using an eIDAS for legal entity representatives certificate, nothing additional is required from your side. Otherwise, you have to additionally provide evidence of the existence of the company and the capacity to represent the company of the Legal Representative. Typically, this is achieved through the submission of a <strong>Certificate of Incorporation of the company</strong>, clearly indicating the legal representatives authorised to represent the company. If this information is not reflected in the incorporation document, an additional <strong>Power of Attorney</strong> (or equivalent document) must be provided. When the original documentation is not issued in English, you will have to submit an English translation of the said documents."
+          },
+          "5": {
+            "question": "What is the process for becoming a CitCom.ai Marketplace provider?",
+            "answer": "The onboarding process is straightforward and can be completed in <strong>two steps</strong>:<br><br><strong>Step 1 – Self-registration</strong><br>You can quickly create a company account and access the platform. Once you receive your verifiable credentials, you can browse the marketplace, review existing offerings, prices and commercial models, even procure services while starting drafting your own service listings. This step allows you to explore and prepare, but it does <strong>not</strong> allow you to publish services or sell through the marketplace.<br><br><strong>Step 2 – Full onboarding</strong><br>To publish services and start selling through the CitCom.ai Marketplace, you must complete the full onboarding process by submitting the required company and role information, along with the supporting documentation described above. Once verification is completed and your onboarding is approved, your organisation can publish its services and start selling on the CitCom.ai Marketplace."
+          },
+          "6": {
+            "question": "I am registered as a CitCom.ai Marketplace provider. Can I also procure services?",
+            "answer": "<strong>Yes.</strong> If you are registered as a provider on the CitCom.ai Marketplace, your organisation can also procure services as a customer. The same company account can be used to browse, request offers, and purchase services from other providers on the platform."
+          }
+        }
+      },
+      "cta": {
+        "subtitle": "Join CitCom.ai Marketplace — built for trusted digital service procurement in Europe"
+      }
+    },
+    "customers": {
+      "faqs": {
+        "_items": {
+          "eligibility": {
+            "question": "Am I eligible to use the CitCom.ai Marketplace as a customer?",
+            "answer": "<p>The CitCom.ai Marketplace is designed for <strong>organisations or professionals worldwide looking to procure trusted digital services in a transparent environment.</strong></p><p>You can use the CitCom.ai Marketplace if you represent:</p><ul><li><strong>Businesses (B2B)</strong> seeking cloud, edge, AI, or digital services</li><li><strong>Public sector organisations (B2G)</strong> such as public administrations, agencies, or research institutions</li><li><strong>Professional organisations</strong> purchasing digital services for operational use</li></ul><p>Or you are an <strong>individual</strong> acting within his/her trade, business or professional activities. That is, an individual not acting as a consumer.</p>"
+          },
+          "trustworthiness": {
+            "question": "How does CitCom.ai ensure the trustworthiness of the services listed on the Marketplace?",
+            "answer": "<p>Services listed on the CitCom.ai Marketplace are evaluated against the <strong>CitCom.ai compliance framework</strong>, which helps customers understand the level of compliance and supporting evidence behind each offering.</p><p>Each service is assigned a <strong>compliance profile</strong>, such as:</p><ul><li><strong>Baseline</strong> – The service meets the mandatory compliance requirements through provider self-attestation.</li><li><strong>Professional / Professional+</strong> – The service is supported by verified certifications and compliance evidence.</li></ul><p>This structured approach allows customers to assess services more easily, compare offerings transparently, and select solutions that align with their compliance and governance requirements.</p><p>Services that do not meet at least the <strong>Baseline Compliance Criteria</strong> are <strong>not published</strong> in the CitCom.ai catalogue.</p>"
+          },
+          "fee": {
+            "question": "Do I need to pay a fee to become a CitCom.ai Marketplace customer?",
+            "answer": "<p><strong>No.</strong> There is no fee for organisations and professionals to join and use the CitCom.ai Marketplace as a customer.</p><p><em>Please note that CitCom.ai does not intervene in the commercial relationship or service delivery but only enables discovery, evaluation, and transactions between providers and customers.</em></p>"
+          },
+          "process": {
+            "question": "What is the process for becoming a CitCom.ai Marketplace customer?",
+            "answer": "<p>Customer onboarding is completed in a single step. You provide:</p><ul><li>Company information (legal name, VAT, address, country)</li><li>Company Representative information (information of the person acting on behalf of the organisation)</li></ul><p>Once submitted, you receive your verifiable credentials and gain full access to the CitCom.ai platform.</p><p>If you are a professional (freelancer):</p><p>You onboard as an organisation. In this case, the company/legal name should match your professional name (as registered for your professional activity).</p>"
+          },
+          "provider": {
+            "question": "I am registered as a CitCom.ai Marketplace customer. Can I also be a service provider?",
+            "answer": "<p><strong>Yes.</strong> If you are already registered as a <strong>customer on the CitCom.ai Marketplace</strong>, you can also <strong>sell services</strong>. To do so, you simply need to <strong>complete the provider onboarding process</strong>.</p><p>Your existing company account remains the same. By completing the additional onboarding steps required for providers, such as submitting the necessary company information and documentation, you will gain the ability to <strong>publish and offer services on the marketplace</strong>.</p><p>Once the provider onboarding is completed and verified, your organisation will be able to <strong>both procure services and sell its own offerings on CitCom.ai</strong>. You can find more information <a href=\"landingpage/providers\" target=\"_blank\" rel=\"noopener noreferrer\">here</a> and onboard as a CitCom.ai Marketplace provider.</p>"
+          },
+          "dispute": {
+            "answer": "<p>Contracts for services are established <strong>directly between the customer and the provider</strong>. Any dispute related to pricing, service delivery, or contractual terms is therefore handled between the contracting parties, in accordance with the terms of their agreement and the applicable law.</p><p>CitCom.ai facilitates discovery and engagement between customers and providers and is <strong>not a party to the service contract</strong>. As such, CitCom.ai does not adjudicate contractual disputes but may, where appropriate, facilitate communication between the parties.</p>"
+          }
+        }
+      },
+      "rightForYou": {
+        "_titleAccent": "CitCom.ai",
+        "_desc": "CitCom.ai is designed for organisations that prioritise trust, sovereignty, and structured supplier evaluation."
+      },
+      "whyJoin": {
+        "_title": "Why join CitCom.ai?"
+      },
+      "trusted": {
+        "_desc": "CitCom.ai connects you to a growing ecosystem of European providers validated against EU regulation."
+      }
+    }
+  },
+  "HOWITWORKS": {
+    "_subtitle": "CitCom.ai helps customers and providers connect in a trusted European marketplace."
+  },
+  "PLATFORM": {
+    "UPDATE_PROD_SPEC": {
+      "_dome_trust": "CitCom.ai Trust Service Provider for Certification"
+    }
+  },
+  "EXPLORE": {
+    "_events_desc": "Join us at our next event or webinar to connect with fellow innovators, learn from industry leaders and discover new opportunities within the CitCom.ai project's ecosystem.",
+    "_updates_desc": "Stay informed with the latest developments, service enhancements and industry insights directly from the CitCom.ai project's website.",
+    "_resources_desc": "Access our library of resources, detailed reports and case studies to gain a deep understanding of AI for smart cities and the CitCom.ai project's impact.",
+    "_go": "CitCom.ai project",
+    "_title": "Explore the CitCom.ai Project"
+  },
+  "FOOTER": {
+    "aboutTitle": "About CitCom.ai",
+    "domeProject": "The CitCom.ai project"
+  },
+  "HEADER": {
+    "_brand_title": "Marketplace",
+    "_brand_subtitle": "Data Space",
+    "_marketplace": "CITCOM.AI MARKETPLACE"
+  },
+  "UPDATE_PROD_SPEC": {
+    "_dome_trust": "CitCom.ai Trust Service Provider for Certification"
+  },
+  "ABOUT_DOME": {
+    "_title": "Discover the CitCom.ai Marketplace",
+    "_whatisdome": "What is the CitCom.ai Marketplace?",
+    "_description": "The CitCom.ai Marketplace is an online catalogue of data and AI services for smart cities and communities, published by providers taking part in the CitCom.ai Testing and Experimentation Facility.",
+    "_description2": "Providers and their offerings are described with verifiable credentials and explicit usage terms, so customers can check who stands behind each service and under which conditions it can be used.",
+    "_benefits": "Among its benefits, the CitCom.ai Marketplace offers:",
+    "_whydome": "Why choose CitCom.ai?",
+    "_whydescription": "By bringing data and AI services from European providers together in a single catalogue, the CitCom.ai Marketplace makes it easier to discover, compare and test solutions before adopting them, shortening the path from experimentation to deployment in real urban environments.",
+    "_central": "CitCom.ai Marketplace: a building block for Europe's smart cities.",
+    "_aligned": "The marketplace is part of CitCom.ai, the European Testing and Experimentation Facility for AI in smart and sustainable cities and communities, co-funded by the European Union and its Member States.",
+    "_singlepoint": "Its goal is to give municipalities, companies and research centres a single point of access to trusted data and AI services, ready to be tested and validated in real-world conditions,",
+    "_explore": "Explore the CitCom.ai project website if you want to know more!",
+    "_domeproject": "CitCom.ai project",
+    "_subtitle": "Your entry point to trusted data and AI services for smart cities and communities.",
+    "_trusted": "Trusted and standardised access to data and AI services that match the needs of cities and communities.",
+    "_focus": "helping to accelerate the responsible adoption of AI across European cities and communities, in line with European values on data protection and digital sovereignty."
+  },
+  "CONTACTUS": {
+    "_subtitle": "We are glad you are interested in the CitCom.ai Marketplace! Please share your questions or thoughts with us and we'll get back to you shortly.",
+    "_controller": "Data Controller CitCom.ai",
+    "_purpose": "Purpose: to send you information about CitCom.ai's project by electronic means. Legal basis: data subject's consent. Recipients: The personal data collected will not be communicated to third parties, unless requested by public administrations or if required by law. Exercise of Rights: sending an email to",
+    "_thanks": "Thank you for contacting CitCom.ai Marketplace."
+  },
+  "FEEDBACK": {
+    "_thanks": "Thank you for contacting CitCom.ai Marketplace.",
+    "_footer_title": "How would you rate your overall experience with CitCom.ai?",
+    "_footer_improve": "How can we improve CitCom.ai?"
+  }
+}
