@@ -633,6 +633,26 @@ if (!!process.env.BAE_LP_ENDPOINT_SEARCH_SECURED) {
 
 
 // ======
+// Avisos por correo (solicitudes y cambios de estado de pedidos + resumen mensual).
+// Desactivado por defecto: solo se activa con BAE_LP_MAIL_ENABLED=true y un SMTP configurado.
+config.mail = {
+    enabled: process.env.BAE_LP_MAIL_ENABLED === 'true',
+    host: process.env.BAE_LP_MAIL_HOST || 'smtp.gmail.com',
+    port: Number(process.env.BAE_LP_MAIL_PORT || 465),
+    secure: (process.env.BAE_LP_MAIL_SECURE || 'true') === 'true',
+    user: process.env.BAE_LP_MAIL_USER || '',
+    password: process.env.BAE_LP_MAIL_PASSWORD || '',
+    from: process.env.BAE_LP_MAIL_FROM || process.env.BAE_LP_MAIL_USER || '',
+    fromName: process.env.BAE_LP_MAIL_FROM_NAME || 'Marketplace PGTEC',
+    replyTo: process.env.BAE_LP_MAIL_REPLY_TO || '',
+    // Dueño del espacio de datos: recibe el resumen mensual
+    adminEmail: process.env.BAE_LP_MAIL_ADMIN || '',
+    // URL pública del marketplace para los enlaces de los correos
+    linkBase: process.env.BAE_LP_MAIL_LINK_BASE || '',
+    // Cada cuántos segundos se comparan los pedidos con la última instantánea
+    pollSeconds: Number(process.env.BAE_LP_MAIL_POLL_SECONDS || 120)
+};
+
 // MongoDB Config
 config.mongoDb = config.mongoDb || {};
 config.mongoDb.user = process.env.BAE_LP_MONGO_USER || config.mongoDb.user || '';

@@ -862,6 +862,7 @@ function loadOperatorInfo() {
 
 
 function onlistening() {
+    require('./lib/notifications').notifications.start();
     retryAsync(loadChargingInfo, { name: "Charging info", delayMs: 5000 });
     retryAsync(loadStatsInfo,    { name: "Stats info",    delayMs: 5000 });
     retryAsync(loadOperatorInfo, { name: "Operator info", delayMs: 5000 });

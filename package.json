@@ -41,6 +41,7 @@
     "node-cron": "^3.0.3",
     "node-fetch": "^2.6.1",
     "node-minify": "^3.6.0",
+    "nodemailer": "^6.10.1",
     "normalize-url": "^1.8.0",
     "on-finished": "^2.3.0",
     "openid-client": "^4.7.4",

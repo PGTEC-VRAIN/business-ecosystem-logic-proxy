@@ -5,7 +5,7 @@
     "_brand_subtitle": "Marketplace del espacio de datos",
     "_marketplace": "PGTEC MARKETPLACE",
     "_register_here": "Solicitar adhesión",
-    "_onboarding": "Adhesión",
+    "_onboarding": "Registrarse",
     "_home": "Inicio",
     "_browse": "Explorar",
     "_services": "Servicios",
@@ -83,6 +83,6 @@
     "_choose": "Elige uno de los catálogos de los proveedores del espacio de datos"
   },
   "CATEGORIES": {
-    "_categories": "Categorías"
+    "_categories": "Proveedores y categorías"
   }
 }
