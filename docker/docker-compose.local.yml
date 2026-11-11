@@ -1,0 +1,8 @@
+# Override para probar en local la imagen construida con
+#   docker build -f docker/Dockerfile -t logic-proxy:test .
+# Uso (desde docker/):  docker compose -f docker-compose.yml -f docker-compose.local.yml up
+services:
+  proxy:
+    image: logic-proxy:test
+    ports: !override
+      - "127.0.0.1:8001:8000"

@@ -22,8 +22,12 @@ const axios = require('axios')
 const config = require('./../../config')
 const utils = require('./../../lib/utils')
 const tmfUtils = require('./../../lib/tmfUtils')
+const equal = require('deep-equal')
+const { createSpecificationLifecycleFilter } = require('./../../lib/specificationLifecycleFilter')
+
 
 const serviceCatalog = (function() {
+    const lifecycleFilter = createSpecificationLifecycleFilter('serviceSpecification');
 
     const validateRetrieving = function(req, callback) {
         // Check if the request is a list of service specifications
@@ -190,10 +194,24 @@ const serviceCatalog = (function() {
     }
 
     const validateUpdate = function(req, callback) {
-        // Check the lifecycle updates
         const body = req.parsedBody
         const prevBody = req.prevBody
 
+        if (body != null && Object.prototype.hasOwnProperty.call(body, 'relatedParty')) {
+            const sortParty = (p1, p2) =>
+                String(p1?.id).localeCompare(String(p2?.id)) ||
+                String(p1?.role).localeCompare(String(p2?.role))
+
+            if (!Array.isArray(body.relatedParty) || !Array.isArray(prevBody.relatedParty) ||
+                !equal(prevBody.relatedParty.slice().sort(sortParty), body.relatedParty.slice().sort(sortParty))) {
+                return callback({
+                    status: 409,
+                    message: 'The field "relatedParty" can not be modified'
+                })
+            }
+        }
+
+        // Check the lifecycle updates
         if (body.lifecycleStatus != null && !tmfUtils.isValidStatusTransition(prevBody.lifecycleStatus, body.lifecycleStatus)) {
             // The status is being updated
             return callback({
@@ -233,7 +251,7 @@ const serviceCatalog = (function() {
     }
 
     const validators = {
-        GET: [validateRetrieving],
+        GET: [validateRetrieving, lifecycleFilter.prepare],
         POST: [utils.validateLoggedIn, parseBody, validateOwnerSellerPost, validateFields],
         PATCH: [utils.validateLoggedIn, parseBody, getPrevVersion, validateUpdate, validateOwnerSeller, validateFields],
         PUT: [utils.methodNotAllowed],
@@ -261,6 +279,7 @@ const serviceCatalog = (function() {
     return {
         checkPermissions: checkPermissions,
         executePostValidation: executePostValidation,
+        getFilteredPaginationConfig: lifecycleFilter.getFilteredPaginationConfig,
         handleAPIError: handleAPIError
     }
 })();

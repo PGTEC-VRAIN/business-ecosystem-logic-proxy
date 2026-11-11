@@ -54,7 +54,7 @@ describe('TMF Controller', function() {
     };
 
     // Function to get a custom tmf.js instance
-    const getTmfInstance = function(request, catalog, ordering, inventory, party) {
+    const getTmfInstance = function(request, catalog, ordering, inventory, party, document) {
         return proxyquire('../../controllers/tmf', {
             axios: request,
             './../config': config,
@@ -63,7 +63,8 @@ describe('TMF Controller', function() {
             './tmf-apis/catalog': { catalog: catalog },
             './tmf-apis/ordering': { ordering: ordering },
             './tmf-apis/inventory': { inventory: inventory },
-            './tnf-apis/party': { party: party }
+            './tnf-apis/party': { party: party },
+            './tmf-apis/document': { document: document }
         }).tmf();
     };
 
@@ -207,7 +208,15 @@ describe('TMF Controller', function() {
             const catalogController = api.startsWith(config.endpoints.catalog.path) ? controller : null;
             const orderingController = api.startsWith(config.endpoints.ordering.path) ? controller : null;
             const inventoryController = api.startsWith(config.endpoints.inventory.path) ? controller : null;
-            const tmf = getTmfInstance(request, catalogController, orderingController, inventoryController);
+            const documentController = api.startsWith(config.endpoints.document.path) ? controller : null;
+            const tmf = getTmfInstance(
+                request,
+                catalogController,
+                orderingController,
+                inventoryController,
+                null,
+                documentController
+            );
 
             // Actual call
             const req = { apiUrl: '/' + api, headers: {}, connection: { remoteAddress: '127.0.0.1' } };
@@ -238,6 +247,10 @@ describe('TMF Controller', function() {
 
         it('should not redirect the request to the actual inventory API when controller rejects it', function(done) {
             testApiReturnsError('inventory', done);
+        });
+
+        it('should not redirect the request to the actual document API when controller rejects it', function(done) {
+            testApiReturnsError('document', done);
         });
 
         const testApiOk = function(api, path, done, opts) {
@@ -277,7 +290,15 @@ describe('TMF Controller', function() {
             const catalogController = api.startsWith(config.endpoints.catalog.path) ? controller : null;
             const orderingController = api.startsWith(config.endpoints.ordering.path) ? controller : null;
             const inventoryController = api.startsWith(config.endpoints.inventory.path) ? controller : null;
-            const tmf = getTmfInstance(request, catalogController, orderingController, inventoryController);
+            const documentController = api.startsWith(config.endpoints.document.path) ? controller : null;
+            const tmf = getTmfInstance(
+                request,
+                catalogController,
+                orderingController,
+                inventoryController,
+                null,
+                documentController
+            );
 
             // Actual call
             const req = {
@@ -322,20 +343,59 @@ describe('TMF Controller', function() {
             testApiOk('catalog', '/catalog', done);
         });
 
-        it('should redirect the request to the actual catalog API with the categories available in the catalog, when controller does not reject it (sub-resource)', function(done) {
-            testApiOk('catalog', '/catalog/some-id/productOffering', done, { 'expectedPath': '/productOffering?category=cat', 'catalogResponse': {'status': 200, 'body':{'category':[{'id': 'cat'}]}}});
-        });
+        it('should redirect using an apiUrl rewritten by the controller', function(done) {
+            const protocol = 'http';
+            utils.getAPIProtocol = function() {
+                return protocol;
+            };
+            utils.getAPIPath = function() {
+                return '/api';
+            }
 
-        it('should redirect the request to the actual catalog API with the categories available in the catalog, when controller does not reject it (sub-resource)', function(done) {
-            testApiOk('catalog', '/catalog/some-id/productOffering', done, { 'expectedPath': '/productOffering?category=cat-1,cat-2', 'catalogResponse': {'status': 200, 'body':{'category':[{'id': 'cat-1'}, {'id': 'cat-2'}]}}});
-        });
+            const controller = {
+                checkPermissions: function(req, callback) {
+                    req.apiUrl = '/catalog/productOffering?category=cat'
+                    callback()
+                }
+            };
 
-        it('should redirect the request to the actual catalog API with the categories available in the catalog, when controller does not reject it (sub-resource)', function(done) {
-            testApiOk('catalog', '/catalog/some-id/productOffering?category=cat-1', done, { 'expectedPath': '/productOffering?category=cat-1', 'catalogResponse': {'status': 200, 'body':{'category':[{'id': 'cat-1'}, {'id': 'cat-2'}]}}});
-        });
+            const respStatus = 200
+            const respData = {resp: 'Response content'}
+            const request = getDefaultHttpClient({
+                status: respStatus,
+                data: respData,
+                headers: {
+                    'content-type': 'application/json'
+                }
+            });
+            const tmf = getTmfInstance(request, controller, null, null, null, null);
+            const req = {
+                apiUrl: '/catalog/catalog/some-id/productOffering',
+                path: '/catalog/catalog/some-id/productOffering',
+                body: 'Example',
+                method: 'GET',
+                user: { id: 'user' },
+                headers: {},
+                connection: { remoteAddress: '127.0.0.1' },
+                get: () => {
+                    return 'true'
+                }
+            };
+            const res = jasmine.createSpyObj('res', ['status', 'json', 'setHeader']);
 
-        it('should redirect the request to the actual catalog API with the categories available in the catalog, when controller does not reject it (sub-resource)', function(done) {
-            testApiOk('catalog', '/catalog/some-id/productOffering?category=cat-1,cat-2', done, { 'expectedPath': '/productOffering?category=cat-1', 'catalogResponse': {'status': 200, 'body':{'category':[{'id': 'cat-1'}]}}});
+            res.json.and.callFake(() => {
+                expect(request.request).toHaveBeenCalledWith({
+                    url: protocol + '://' + utils.getAPIHost() + ':' + utils.getAPIPort() + utils.getAPIPath() + '/productOffering?category=cat',
+                    method: 'GET',
+                    data: req.body,
+                    headers: utils.proxiedRequestHeaders()
+                });
+                expect(res.status).toHaveBeenCalledWith(respStatus)
+                expect(res.json).toHaveBeenCalledWith(respData)
+
+                done();
+            })
+            tmf.checkPermissions(req, res);
         });
 
         it('should redirect the request to the actual ordering API when controller does not reject it (root)', function(done) {
@@ -344,6 +404,10 @@ describe('TMF Controller', function() {
 
         it('should redirect the request to the actual inventory API when controller does not reject it (root)', function(done) {
             testApiOk('inventory', '', done);
+        });
+
+        it('should redirect the request to the actual document API when controller does not reject it (root)', function(done) {
+            testApiOk('document', '', done);
         });
 
         it('should redirect the request to the actual catalog API when controller does not reject it (non root)', function(done) {
@@ -356,6 +420,10 @@ describe('TMF Controller', function() {
 
         it('should redirect the request to the actual inventory API when controller does not reject it (non root)', function(done) {
             testApiOk('inventory', '/complex?a=b', done);
+        });
+
+        it('should redirect the request to the actual document API when controller does not reject it (non root)', function(done) {
+            testApiOk('document', '/document/123?a=b', done, { expectedPath: '/document/123?a=b' });
         });
     });
 
@@ -569,6 +637,206 @@ describe('TMF Controller', function() {
 
         it('should call API error handler and return an error given in the handler', function(done) {
             testAPIErrorHandling(executeValidationError, 500, true, true, done);
+        });
+
+        it('should not use filtered pagination for non-GET requests', function(done) {
+            utils.getAPIProtocol = function() {
+                return 'http';
+            };
+            utils.getAPIPath = function() {
+                return '/api';
+            }
+
+            const controller = jasmine.createSpyObj('controller', [
+                'checkPermissions',
+                'getFilteredPaginationConfig'
+            ]);
+            controller.checkPermissions.and.callFake((req, callback) => {
+                callback(null);
+            });
+
+            const returnedResponse = {
+                status: 200,
+                headers: {
+                    'content-type': 'application/json'
+                },
+                data: { ok: true }
+            };
+
+            const request = getDefaultHttpClient(returnedResponse);
+            const tmf = getTmfInstance(request, null, controller, null);
+            const orderingPath = '/' + config.endpoints.ordering.path + '/productOrder'
+            const req = {
+                apiUrl: orderingPath + '?limit=2&offset=0',
+                body: reqBody,
+                method: 'POST',
+                headers: {},
+                connection: connection,
+                get: () => {
+                    return null
+                }
+            };
+            const res = jasmine.createSpyObj('res', ['status', 'setHeader', 'json', 'end']);
+
+            res.json.and.callFake(() => {
+                expect(controller.getFilteredPaginationConfig).not.toHaveBeenCalled()
+                expect(request.request.calls.count()).toBe(1)
+                expect(res.json).toHaveBeenCalledWith({ ok: true })
+                done()
+            })
+
+            tmf.checkPermissions(req, res);
+        });
+
+        it('should keep normal GET proxy behavior when filtered pagination is not configured', function(done) {
+            utils.getAPIProtocol = function() {
+                return 'http';
+            };
+            utils.getAPIPath = function() {
+                return '/api';
+            }
+
+            const controller = jasmine.createSpyObj('controller', [
+                'checkPermissions',
+                'getFilteredPaginationConfig'
+            ]);
+            controller.checkPermissions.and.callFake((req, callback) => {
+                callback(null);
+            });
+            controller.getFilteredPaginationConfig.and.returnValue(null);
+
+            const returnedResponse = {
+                status: 200,
+                headers: {
+                    'content-type': 'application/json'
+                },
+                data: [{ id: '1' }]
+            };
+
+            const request = getDefaultHttpClient(returnedResponse);
+            const tmf = getTmfInstance(request, null, controller, null);
+            const orderingPath = '/' + config.endpoints.ordering.path + '/productOrder'
+            const req = {
+                apiUrl: orderingPath + '?limit=2&offset=0',
+                body: reqBody,
+                method: 'GET',
+                query: {
+                    limit: '2',
+                    offset: '0'
+                },
+                headers: {},
+                connection: connection,
+                get: () => {
+                    return null
+                }
+            };
+            const res = jasmine.createSpyObj('res', ['status', 'setHeader', 'json', 'end']);
+
+            res.json.and.callFake(() => {
+                expect(controller.getFilteredPaginationConfig).toHaveBeenCalledWith(req)
+                expect(request.request.calls.count()).toBe(1)
+                expect(res.json).toHaveBeenCalledWith([{ id: '1' }])
+                done()
+            })
+
+            tmf.checkPermissions(req, res);
+        });
+
+        it('should aggregate filtered GET pages and run post validation once on the final body', function(done) {
+            utils.getAPIProtocol = function() {
+                return 'http';
+            };
+            utils.getAPIPath = function() {
+                return '/api';
+            }
+
+            const controller = jasmine.createSpyObj('controller', [
+                'checkPermissions',
+                'getFilteredPaginationConfig',
+                'executePostValidation'
+            ]);
+            controller.checkPermissions.and.callFake((req, callback) => {
+                callback(null);
+            });
+            controller.getFilteredPaginationConfig.and.returnValue({
+                predicate: (item) => item.valid
+            });
+            controller.executePostValidation.and.callFake((result, callback) => {
+                callback(null);
+            });
+
+            const request = jasmine.createSpyObj('axios', ['request']);
+            request.request.and.callFake((options) => {
+                if (options.url.indexOf('offset=0') >= 0) {
+                    return Promise.resolve({
+                        status: 200,
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        data: [
+                            { id: '1', valid: false },
+                            { id: '2', valid: true }
+                        ]
+                    })
+                }
+
+                return Promise.resolve({
+                    status: 200,
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    data: [
+                        { id: '3', valid: true },
+                        { id: '4', valid: true }
+                    ]
+                })
+            });
+
+            const tmf = getTmfInstance(request, null, controller, null);
+            const orderingPath = '/' + config.endpoints.ordering.path + '/productOrder'
+            const req = Object.create({
+                method: 'GET',
+                headers: {},
+                connection: connection,
+                get: () => {
+                    return null
+                }
+            });
+
+            Object.assign(req, {
+                id: reqId,
+                url: orderingPath + '?limit=2&offset=0',
+                apiUrl: orderingPath + '?limit=2&offset=0',
+                body: reqBody,
+                query: {
+                    limit: '2',
+                    offset: '0'
+                },
+                user: { id: userId }
+            });
+            const res = jasmine.createSpyObj('res', ['status', 'setHeader', 'json', 'end']);
+
+            res.json.and.callFake(() => {
+                expect(request.request.calls.count()).toBe(2)
+                expect(request.request.calls.argsFor(0)[0].url).toBe('http://example.com:1234/api/productOrder?limit=2&offset=0')
+                expect(request.request.calls.argsFor(1)[0].url).toBe('http://example.com:1234/api/productOrder?limit=2&offset=2')
+                expect(controller.executePostValidation.calls.count()).toBe(1)
+                expect(controller.executePostValidation.calls.argsFor(0)[0].body).toEqual([
+                    { id: '2', valid: true },
+                    { id: '3', valid: true }
+                ])
+                expect(res.setHeader).toHaveBeenCalledWith(
+                    'X-Filtered-Pagination-Token',
+                    jasmine.any(String)
+                )
+                expect(res.json).toHaveBeenCalledWith([
+                    { id: '2', valid: true },
+                    { id: '3', valid: true }
+                ])
+                done()
+            })
+
+            tmf.checkPermissions(req, res);
         });
     });
 });

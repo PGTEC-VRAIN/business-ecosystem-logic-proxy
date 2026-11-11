@@ -20,14 +20,14 @@
 const async = require('async')
 const utils = require('./../../lib/utils')
 
-const ai = (function() {
+const document = (function() {
     const validateRetrieving = function(req, callback) {
         callback(null);
     }
     
     const validators = {
-        GET: [validateRetrieving],
-        POST: [validateRetrieving],
+        GET: [utils.validateLoggedIn, validateRetrieving],
+        POST: [utils.validateLoggedIn, validateRetrieving],
         PATCH: [utils.validateLoggedIn, validateRetrieving],
         PUT: [utils.validateLoggedIn, validateRetrieving],
         DELETE: [utils.validateLoggedIn, validateRetrieving]
@@ -58,4 +58,4 @@ const ai = (function() {
     }
 })();
 
-exports.ai = ai;
+exports.document = document;

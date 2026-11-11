@@ -1,0 +1,126 @@
+# Backend local de pruebas: Scorpio + APIs TMForum + Mongo + logic proxy (sin IdM)
+name: pgtec-local-backend
+services:
+  postgis:
+    image: postgis/postgis:17-3.4-alpine
+    environment: [POSTGRES_DB=ngb, POSTGRES_PASSWORD=ngb, POSTGRES_USER=ngb, PGUSER=postgres, PGDATA=/data/postgres]
+    volumes: [postgres:/data/postgres]
+  scorpio:
+    image: scorpiobroker/all-in-one-runner:java-5.0.3
+    environment: [DBHOST=postgis, DBPASS=ngb, DBUSER=ngb, POSTGRES_DB=ngb, POSTGRES_PASSWORD=ngb, POSTGRES_USER=ngb]
+    depends_on: [postgis]
+    ports: ["127.0.0.1:9090:9090"]
+    healthcheck:
+      test: curl --fail -s http://scorpio:9090/q/health || exit 1
+      interval: 15s
+      retries: 20
+  mongo:
+    image: mongo:6.0
+    volumes: [mongo-data:/data/db]
+  party-catalog:
+    image: quay.io/fiware/tmforum-party-catalog:0.24.1
+    environment:
+      - MICRONAUT_HTTP_SERVICES_NGSI_URL=http://scorpio:9090
+      - MICRONAUT_SERVER_PORT=8081
+      - GENERAL_NGSILD_OR_QUERY_VALUE=|
+    depends_on: [scorpio]
+    ports: ["127.0.0.1:8081:8081"]
+  customer-management:
+    image: quay.io/fiware/tmforum-customer-management:0.24.1
+    environment:
+      - MICRONAUT_HTTP_SERVICES_NGSI_URL=http://scorpio:9090
+      - MICRONAUT_SERVER_PORT=8083
+      - GENERAL_NGSILD_OR_QUERY_VALUE=|
+    depends_on: [scorpio]
+  product-catalog:
+    image: quay.io/fiware/tmforum-product-catalog:0.24.1
+    environment:
+      - MICRONAUT_HTTP_SERVICES_NGSI_URL=http://scorpio:9090
+      - MICRONAUT_SERVER_PORT=8084
+      - GENERAL_NGSILD_OR_QUERY_VALUE=|
+    depends_on: [scorpio]
+    ports: ["127.0.0.1:8084:8084"]
+  product-inventory:
+    image: quay.io/fiware/tmforum-product-inventory:0.24.1
+    environment:
+      - MICRONAUT_HTTP_SERVICES_NGSI_URL=http://scorpio:9090
+      - MICRONAUT_SERVER_PORT=8085
+      - GENERAL_NGSILD_OR_QUERY_VALUE=|
+    depends_on: [scorpio]
+  product-ordering-management:
+    image: quay.io/fiware/tmforum-product-ordering-management:0.24.1
+    environment:
+      - MICRONAUT_HTTP_SERVICES_NGSI_URL=http://scorpio:9090
+      - MICRONAUT_SERVER_PORT=8086
+      - GENERAL_NGSILD_OR_QUERY_VALUE=|
+    depends_on: [scorpio]
+  resource-catalog:
+    image: quay.io/fiware/tmforum-resource-catalog:0.24.1
+    environment:
+      - MICRONAUT_HTTP_SERVICES_NGSI_URL=http://scorpio:9090
+      - MICRONAUT_SERVER_PORT=8087
+      - GENERAL_NGSILD_OR_QUERY_VALUE=|
+    depends_on: [scorpio]
+  resource-inventory:
+    image: quay.io/fiware/tmforum-resource-inventory:0.24.1
+    environment:
+      - MICRONAUT_HTTP_SERVICES_NGSI_URL=http://scorpio:9090
+      - MICRONAUT_SERVER_PORT=8089
+      - GENERAL_NGSILD_OR_QUERY_VALUE=|
+    depends_on: [scorpio]
+  service-catalog:
+    image: quay.io/fiware/tmforum-service-catalog:0.24.1
+    environment:
+      - MICRONAUT_HTTP_SERVICES_NGSI_URL=http://scorpio:9090
+      - MICRONAUT_SERVER_PORT=8090
+      - GENERAL_NGSILD_OR_QUERY_VALUE=|
+    depends_on: [scorpio]
+  account:
+    image: quay.io/fiware/tmforum-account:0.24.1
+    environment:
+      - MICRONAUT_HTTP_SERVICES_NGSI_URL=http://scorpio:9090
+      - MICRONAUT_SERVER_PORT=8091
+      - GENERAL_NGSILD_OR_QUERY_VALUE=|
+    depends_on: [scorpio]
+  usage-management:
+    image: quay.io/fiware/tmforum-usage-management:0.24.1
+    environment:
+      - MICRONAUT_HTTP_SERVICES_NGSI_URL=http://scorpio:9090
+      - MICRONAUT_SERVER_PORT=8092
+      - GENERAL_NGSILD_OR_QUERY_VALUE=|
+    depends_on: [scorpio]
+  proxy:
+    image: logic-proxy:test
+    depends_on: [mongo, product-catalog, party-catalog]
+    ports: ["127.0.0.1:8001:8004"]
+    environment:
+      - NODE_ENV=development
+      - BAE_LP_PORT=8004
+      - BAE_LP_HOST=localhost
+      - BAE_LP_THEME=PGTEC
+      - BAE_LP_MONGO_SERVER=mongo
+      - BAE_LP_MONGO_PORT=27017
+      - BAE_LP_MONGO_DB=belp
+      - BAE_LP_ENDPOINT_PARTY_HOST=party-catalog
+      - BAE_LP_ENDPOINT_PARTY_PORT=8081
+      - BAE_LP_ENDPOINT_CUSTOMER_HOST=customer-management
+      - BAE_LP_ENDPOINT_CUSTOMER_PORT=8083
+      - BAE_LP_ENDPOINT_CATALOG_HOST=product-catalog
+      - BAE_LP_ENDPOINT_CATALOG_PORT=8084
+      - BAE_LP_ENDPOINT_INVENTORY_HOST=product-inventory
+      - BAE_LP_ENDPOINT_INVENTORY_PORT=8085
+      - BAE_LP_ENDPOINT_ORDERING_HOST=product-ordering-management
+      - BAE_LP_ENDPOINT_ORDERING_PORT=8086
+      - BAE_LP_ENDPOINT_RESOURCE_HOST=resource-catalog
+      - BAE_LP_ENDPOINT_RESOURCE_PORT=8087
+      - BAE_LP_ENDPOINT_RESOURCE_INVENTORY_HOST=resource-inventory
+      - BAE_LP_ENDPOINT_RESOURCE_INVENTORY_PORT=8089
+      - BAE_LP_ENDPOINT_SERVICE_HOST=service-catalog
+      - BAE_LP_ENDPOINT_SERVICE_PORT=8090
+      - BAE_LP_ENDPOINT_BILLING_HOST=account
+      - BAE_LP_ENDPOINT_BILLING_PORT=8091
+      - BAE_LP_ENDPOINT_USAGE_HOST=usage-management
+      - BAE_LP_ENDPOINT_USAGE_PORT=8092
+volumes:
+  postgres:
+  mongo-data:
