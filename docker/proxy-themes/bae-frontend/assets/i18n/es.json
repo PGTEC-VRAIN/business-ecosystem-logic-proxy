@@ -1930,7 +1930,8 @@
     "_join_companies_using": "Únete a las organizaciones que ya usan {{ productName }}",
     "_join_marketplace": "Únete al Marketplace",
     "_discover_more": "Descubre más",
-    "_discover_more_subtitle": "Descubre servicios adaptados a tus necesidades"
+    "_discover_more_subtitle": "Descubre servicios adaptados a tus necesidades",
+    "_usage_policies": "Políticas de uso"
   },
   "CATALOGS": {
     "_all_catalogs": "All catalogues",

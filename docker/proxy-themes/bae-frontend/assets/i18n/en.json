@@ -1660,7 +1660,6 @@
       "_sort_name": "Name",
       "_sort_date": "Date",
       "_no_services": "No services available",
-
       "_no_options": "No options",
       "_not_found": "Provider not found",
       "_not_found_desc": "This provider page is unavailable or no longer exists.",
@@ -1931,7 +1930,8 @@
     "_join_companies_using": "Join thousands of companies using {{ productName }}",
     "_join_marketplace": "Join DOME Marketplace",
     "_discover_more": "Discover more",
-    "_discover_more_subtitle": "Discover services tailored to your needs"
+    "_discover_more_subtitle": "Discover services tailored to your needs",
+    "_usage_policies": "Usage policies"
   },
   "CATALOGS": {
     "_all_catalogs": "All catalogues",
@@ -2281,7 +2281,6 @@
     "_description": "Description",
     "_general_info_desc": "Provide the basic identification details for your product, including its name, a brief overview, and visual assets.",
     "_product_image": "Product Image",
-    "_attachments": "Attachments",
     "_choose_files": "Choose files",
     "_or_drop_here": "or drag and drop here",
     "_image_formats": "SVG, PNG, JPG or GIF (max. 3MB)",
@@ -2326,7 +2325,6 @@
     "_usecase_name_placeholder": "Insert a use case name",
     "_usecase_desc_placeholder": "Describe the purpose and usage of this use case",
     "_save_usecase": "Save use case",
-    "_actions": "Actions",
     "_select_service_placeholder": "Digit or select a service specification",
     "_select_resource_placeholder": "Digit or select a resource specification",
     "_search_specs": "Search...",
@@ -2876,7 +2874,6 @@
     "_no_offer": "There's no offerings.",
     "_previous": "Previous step",
     "_previous_step": "Previous step",
-    "_cancel": "Cancel",
     "_next_step": "Next step",
     "_step_contract_definition": "Contract definition",
     "_contract_definition": "Contract definition",
@@ -3246,7 +3243,6 @@
     "_draft": "Draft",
     "_validated": "Validated",
     "_unpublished": "Unpublished",
-    "_retired": "Retired",
     "_deleted": "Deleted",
     "_archived": "Archived",
     "_edit": "Edit",
