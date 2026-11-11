@@ -5,7 +5,59 @@ que sirve el **marketplace de PGTEC** (VRAIN, UPV). El *logic proxy* es el punto
 Business API Ecosystem: autentica a los usuarios, valida las peticiones hacia las APIs TMForum y
 sirve la web del marketplace.
 
+<<<<<<< HEAD
 ## Cómo funciona este repo
+=======
+ * [Introduction](#introduction)
+ * [GEi Overall Description](#gei-overall-description)
+ * [Installation](#installation)
+ * [Customizing the Marketplace Theme](#customizing-the-marketplace-theme)
+ * [API Reference](#api-reference)
+ * [Testing](#testing)
+ * [Advanced Topics](#advanced-topics)
+
+# Introduction
+
+This is the code repository for the Business Ecosystem Logic Proxy, one of the components that made up the [Business API Ecosystem GE](https://github.com/FIWARE-TMForum/Business-API-Ecosystem). The Business API Ecosystem is part of [FIWARE](https://www.fiware.org), and has been developed in collaboration with the [TM Forum](https://www.tmforum.org/).
+
+Any feedback is highly welcome, including bugs, typos or things you think should be included but aren't. You can use [GitHub Issues](https://github.com/FIWARE-TMForum/business-ecosystem-logic-proxy/issues/new) to provide feedback.
+
+| :books: [Documentation](http://business-api-ecosystem.readthedocs.io) | :whale: [Docker](https://registry.hub.docker.com/r/fiware/biz-ecosystem-logic-proxy) | <img style="height:1em" src="https://quay.io/static/img/quay_favicon.png"/> [quay.io](https://quay.io/repository/fiware/biz-ecosystem-logic-proxy) |
+ | ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------- | --- |
+
+# GEi Overall Description
+
+The Business API Ecosystem is a joint component made up of the FIWARE Business Framework and a set of APIs (and its reference implementations) defined by the TMForum. This component allows the monetization of different kind of assets (both digital and physical) during the whole service life cycle, from offering creation to its charging, accounting and revenue settlement and sharing. The Business API Ecosystem exposes its complete functionality through TMForum standard APIs; in particular, it includes the catalog, management, ordering management, inventory management, usage management, billing, customer, and party APIs.
+
+In this context, the Business Ecosystem Logic Proxy acts as the endpoint for accessing the Business API Ecosystem. On the one hand, it orchestrates the APIs validating user requests, including authentication, authorization, and the content of the request from a business logic point of view. On the other hand, it serves a web portal that can be used to interact with the system.
+
+# Installation
+
+The Business Ecosystem Logic Proxy is installed as part of the Business API Ecosystem, so the instructions to install it can be found at [the Business API Ecosystem Installation Guide](http://business-api-ecosystem.readthedocs.io/en/latest/installation-administration-guide.html). You can install the software in two different ways:
+
+* Using a [Docker Container](https://hub.docker.com/r/fiware/biz-ecosystem-logic-proxy/) (recommended)
+* Manually
+
+# Customizing the Marketplace Theme
+
+The web portal served by the Logic Proxy (`portal/bae-frontend`) is the compiled build of the
+[BAE Frontend](https://github.com/Ficodes/BAE-Frontend). If you want to create your own theme for the
+Marketplace (colors, logos, navigation links, texts, etc.), refer to the BAE Frontend repository: its
+README explains how to create a new theme and how to build a Logic Proxy image that includes it.
+
+The theme to be used is selected at runtime with the `BAE_LP_THEME` environment variable.
+
+# API Reference
+
+For further documentation, you can check the API Reference available at:
+
+* [Apiary](http://docs.fiwaretmfbizecosystem.apiary.io)
+* [GitHub Pages](https://fiware-tmforum.github.io/Business-API-Ecosystem/)
+
+# Testing
+
+To execute the unit tests, just run:
+>>>>>>> upstream/master
 
 ```mermaid
 flowchart LR

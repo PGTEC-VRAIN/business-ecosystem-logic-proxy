@@ -342,6 +342,84 @@ describe('VC Strategy', () => {
             }])
         })
 
+        it('should prioritize credentialSubject-derived id over token sub', () => {
+            const payload = {
+                "sub": "did:key:subject-from-token",
+                "verifiableCredential": {
+                    "credentialSubject": {
+                      "email": "admin@test.com",
+                      "familyName": "User",
+                      "firstName": "Admin",
+                      "id": "credential-subject-id",
+                      "roles": [
+                        {
+                          "names": [
+                            "admin"
+                          ],
+                          "target": "did:web:dome-marketplace.org"
+                        }
+                      ],
+                      "type": "gx:NaturalParticipant"
+                    },
+                    "issuer": "did:web:dome-marketplace.org",
+                    "type": [
+                      "VerifiableCredential",
+                      "LegalPersonCredential"
+                    ]
+                }
+            }
+
+            const credential = new VerifiableCredential(payload)
+            const profile = credential.getProfile()
+
+            expect(profile.id).toEqual('admin@test.com')
+            expect(profile.email).toEqual('admin@test.com')
+            expect(profile.username).toEqual('admin')
+        })
+
+        it('should fallback to token sub for LEARCredentialEmployee when mandatee.id and credentialSubject.id are missing', () => {
+            const payload = {
+                "sub": "did:key:fallback-from-token-sub",
+                "verifiableCredential": {
+                    "credentialSubject": {
+                        "mandate": {
+                            "mandatee": {
+                                "email": "admin@email.com",
+                                "first_name": "Admin",
+                                "last_name": "User"
+                            },
+                            "mandator": {
+                                "organization": "TestCompany, S.L.",
+                                "organizationIdentifier": "VATES-C12341234"
+                            },
+                            "power": [
+                                {
+                                    "tmf_action": "Execute",
+                                    "tmf_function": "Onboarding"
+                                }
+                            ]
+                        },
+                        "roles": []
+                    },
+                    "issuer": "did:web:example.org",
+                    "type": [
+                      "VerifiableCredential",
+                      "LEARCredentialEmployee"
+                    ]
+                }
+            }
+
+            const credential = new VerifiableCredential(payload)
+            const profile = credential.getProfile()
+
+            expect(profile.id).toEqual('did:key:fallback-from-token-sub')
+            expect(profile.organizations).toEqual([{
+                id: 'VATES-C12341234',
+                name: 'TestCompany, S.L.',
+                roles: [{ name: nodeConfig.roles.orgAdmin, id: nodeConfig.roles.orgAdmin }]
+            }])
+        })
+
         it('should build a vc with a LegalPersonCredential with issuer', () => {
             const payload = {
                 "verifiableCredential": {
@@ -788,8 +866,8 @@ describe('VC Strategy', () => {
         })
 
         it ('should build a VC with a LEARCredential V2 including certifier power', () => {
-          const payload = {
-              "vc": {
+            const payload = {
+                "vc": {
                 "@context": [
                   "https://www.w3.org/ns/credentials/v2",
                   "https://www.dome-marketplace.eu/2025/credentials/learcredentialemployee/v2"
@@ -884,19 +962,197 @@ describe('VC Strategy', () => {
               }
           }
 
-          const credential = new VerifiableCredential(payload)
-          const profile = credential.getProfile()
+            const credential = new VerifiableCredential(payload)
+            const profile = credential.getProfile()
 
-          expect(profile.organizations).toEqual([{
-              id: 'VATBG-123ABCC',
-              name: 'Mandator company',
-              roles: [
-                  { name: nodeConfig.roles.orgAdmin, id: nodeConfig.roles.orgAdmin },
-                  { name: nodeConfig.roles.seller, id: nodeConfig.roles.seller },
-                  { name: nodeConfig.roles.certifier, id: nodeConfig.roles.certifier }
-              ]
-          }])
-      })
+            expect(profile.organizations).toEqual([{
+                id: 'VATBG-123ABCC',
+                name: 'Mandator company',
+                roles: [
+                    { name: nodeConfig.roles.orgAdmin, id: nodeConfig.roles.orgAdmin },
+                    { name: nodeConfig.roles.seller, id: nodeConfig.roles.seller },
+                    { name: nodeConfig.roles.certifier, id: nodeConfig.roles.certifier }
+                ]
+            }])
+        })
+
+        it ('should build a VC with LEARCredential v3 using credentialSubject.id when mandatee.id is missing', () => {
+            const payload = {
+                "vc": {
+                    "@context": [
+                        "https://www.w3.org/ns/credentials/v2",
+                        "https://credentials.eudistack.eu/.well-known/credentials/lear_credential_employee/w3c/v3"
+                    ],
+                    "credentialSubject": {
+                        "id": "did:key:zDnaeqkvhj1aXEvbn8yTU8jaFU6T5XM9brP6tKhFtZvTxek59",
+                        "mandate": {
+                            "mandatee": {
+                                "email": "roger.miret@altia.es",
+                                "firstName": "Test",
+                                "lastName": "Internal Onb"
+                            },
+                            "mandator": {
+                                "commonName": "Nikolaos Zachariadis",
+                                "country": "GR",
+                                "email": "nzachariadis@lancom.gr",
+                                "id": "did:elsi:VATEL-998081209",
+                                "organization": "LAN COMMUNICATIONS LIMITED LIABILITY COMPANY",
+                                "organizationIdentifier": "VATEL-998081209",
+                                "serialNumber": "A00335693"
+                            },
+                            "power": [
+                                {
+                                    "action": [
+                                        "Execute"
+                                    ],
+                                    "domain": "DOME",
+                                    "function": "Onboarding",
+                                    "type": "domain"
+                                }
+                            ]
+                        }
+                    },
+                    "type": [
+                        "LEARCredentialEmployee",
+                        "VerifiableCredential"
+                    ]
+                }
+            }
+
+            const credential = new VerifiableCredential(payload)
+            const profile = credential.getProfile()
+
+            expect(profile.id).toEqual('did:key:zDnaeqkvhj1aXEvbn8yTU8jaFU6T5XM9brP6tKhFtZvTxek59')
+            expect(profile.email).toEqual('roger.miret@altia.es')
+            expect(profile.username).toEqual('roger.miret')
+            expect(profile.organizations).toEqual([{
+                id: 'VATEL-998081209',
+                name: 'LAN COMMUNICATIONS LIMITED LIABILITY COMPANY',
+                roles: [
+                    { name: nodeConfig.roles.orgAdmin, id: nodeConfig.roles.orgAdmin }
+                ],
+                country: 'GR'
+            }])
+        })
+
+        it ('should build a VC with a dotted LEAR employee credential type', () => {
+            const payload = {
+                "vc": {
+                    "credentialSubject": {
+                        "id": "did:key:dotted-employee-subject",
+                        "mandate": {
+                            "mandatee": {
+                                "email": "employee@test.com",
+                                "firstName": "Employee",
+                                "lastName": "User"
+                            },
+                            "mandator": {
+                                "country": "ES",
+                                "organization": "Dotted Employee Org",
+                                "organizationIdentifier": "VATES-DOTTED-EMPLOYEE"
+                            },
+                            "power": [
+                                {
+                                    "action": "Execute",
+                                    "function": "Onboarding"
+                                }
+                            ]
+                        }
+                    },
+                    "issuer": {
+                        "id": "did:elsi:VATES-B00000000"
+                    },
+                    "type": [
+                        "VerifiableCredential",
+                        "learcredential.employee.w3c.v1"
+                    ]
+                }
+            }
+
+            const credential = new VerifiableCredential(payload)
+            const profile = credential.getProfile()
+
+            expect(profile.id).toEqual('did:key:dotted-employee-subject')
+            expect(profile.email).toEqual('employee@test.com')
+            expect(profile.username).toEqual('employee')
+            expect(profile.organizations).toEqual([{
+                id: 'VATES-DOTTED-EMPLOYEE',
+                name: 'Dotted Employee Org',
+                roles: [
+                    { name: nodeConfig.roles.orgAdmin, id: nodeConfig.roles.orgAdmin }
+                ],
+                country: 'ES'
+            }])
+        })
+
+        it ('should select a dotted LEAR credential from a VerifiablePresentation', () => {
+            const payload = {
+                "verifiablePresentation": [
+                    {
+                        "credentialSubject": {
+                            "email": "generic@test.com",
+                            "familyName": "User",
+                            "firstName": "Generic",
+                            "roles": [
+                                {
+                                    "names": [
+                                        "generic"
+                                    ]
+                                }
+                            ]
+                        },
+                        "issuer": "did:web:generic.example",
+                        "type": [
+                            "VerifiableCredential",
+                            "LegalPersonCredential"
+                        ]
+                    },
+                    {
+                        "credentialSubject": {
+                            "mandate": {
+                                "mandatee": {
+                                    "id": "did:key:presentation-employee",
+                                    "email": "presentation@test.com",
+                                    "firstName": "Presentation",
+                                    "lastName": "User"
+                                },
+                                "mandator": {
+                                    "organization": "Presentation Org",
+                                    "organizationIdentifier": "VATES-PRESENTATION"
+                                },
+                                "power": [
+                                    {
+                                        "action": [
+                                            "Create",
+                                            "Update"
+                                        ],
+                                        "function": "ProductOffering"
+                                    }
+                                ]
+                            }
+                        },
+                        "issuer": "did:web:presentation.example",
+                        "type": [
+                            "VerifiableCredential",
+                            "learcredential.employee.w3c.v2"
+                        ]
+                    }
+                ]
+            }
+
+            const credential = new VerifiableCredential(payload)
+            const profile = credential.getProfile()
+
+            expect(profile.id).toEqual('did:key:presentation-employee')
+            expect(profile.email).toEqual('presentation@test.com')
+            expect(profile.organizations).toEqual([{
+                id: 'VATES-PRESENTATION',
+                name: 'Presentation Org',
+                roles: [
+                    { name: nodeConfig.roles.seller, id: nodeConfig.roles.seller }
+                ]
+            }])
+        })
 
       it ('should build a VC with a LEARCredentialMachine including certifier power', () => {
             const payload = {
@@ -974,6 +1230,60 @@ describe('VC Strategy', () => {
                 roles: [
                   { name: nodeConfig.roles.seller, id: nodeConfig.roles.seller },
                   { name: nodeConfig.roles.orgAdmin, id: nodeConfig.roles.orgAdmin },
+                  { name: nodeConfig.roles.certifier, id: nodeConfig.roles.certifier }
+                ],
+                country: 'ES'
+            }])
+      })
+
+      it ('should build a VC with a dotted LEAR machine credential type', () => {
+            const payload = {
+                "vc": {
+                  "type": [
+                    "VerifiableCredential",
+                    "learcredential.machine.w3c.v1"
+                  ],
+                  "issuer": {
+                    "id": "did:elsi:VATES-B00000000"
+                  },
+                  "credentialSubject": {
+                    "mandate": {
+                      "mandatee": {
+                        "id": "did:key:dotted-machine-subject",
+                        "serviceName": "IssuerAPI",
+                        "contact": {
+                          "email": "machine@test.com"
+                        }
+                      },
+                      "mandator": {
+                        "country": "ES",
+                        "organization": "Dotted Machine Org",
+                        "organizationIdentifier": "VATES-DOTTED-MACHINE"
+                      },
+                      "power": [
+                        {
+                          "domain": "DOME",
+                          "function": "Certification",
+                          "action": [
+                            "Upload"
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+            }
+
+            const credential = new VerifiableCredential(payload)
+            const profile = credential.getProfile()
+
+            expect(profile.id).toEqual('did:key:dotted-machine-subject')
+            expect(profile.email).toEqual('machine@test.com')
+            expect(profile.displayName).toEqual('IssuerAPI IssuerAPI')
+            expect(profile.organizations).toEqual([{
+                id: 'VATES-DOTTED-MACHINE',
+                name: 'Dotted Machine Org',
+                roles: [
                   { name: nodeConfig.roles.certifier, id: nodeConfig.roles.certifier }
                 ],
                 country: 'ES'

@@ -10,7 +10,7 @@ tema PGTEC; no se edita a mano.
 ```bash
 cd BAE-Frontend                      # rama con el tema PGTEC y los cambios PGTEC
 npm ci --fetch-timeout=900000 --fetch-retries=6   # los paquetes Font Awesome Pro descargan lento
-npx ng build --configuration production
+npm run build:pgtec                  # compila y renombra main.<hash>.js a frontend_pgtec_<dd_mm_yyyy>.js
 rsync -a --delete dist/bae-frontend/ ../business-ecosystem-logic-proxy/docker/proxy-themes/bae-frontend/
 ```
 

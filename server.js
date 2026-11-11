@@ -22,11 +22,13 @@ const path = require('path');
 const session = require('express-session');
 const shoppingCart = require('./controllers/shoppingCart').shoppingCart;
 const domeBlog = require('./controllers/domeBlog').domeBlog;
+const catalog = require('./controllers/tmf-apis/catalog').catalog;
 const management = require('./controllers/management').management;
 const multer = require('multer');
 const tmf = require('./controllers/tmf').tmf();
 const admin = require('./controllers/admin').admin();
 const stats = require('./controllers/stats').stats();
+const analytics = require('./controllers/analytics').analytics();
 const payment = require('./controllers/payment').payment();
 const contactUs = require('./controllers/contactUs').contactUs();
 const compliance = require('./controllers/compliance').compliance;
@@ -39,8 +41,23 @@ const buildRequestJWT = require('./lib/strategies/vc').buildRequestJWT
 const simulator = require('./controllers/simulator').simulator();
 const { indexes } = require('./lib/indexes')
 const operator = require('./lib/operator').operator
+const { filteredPagination } = require('./lib/filteredPagination')
 
 const debug = !(process.env.NODE_ENV == 'production');
+const SEARCH_FILTERS_COLLECTION = 'config'
+const SEARCH_FILTERS_CONFIG_ID = 'search-filters'
+const FEATURE_FLAGS_COLLECTION = 'config'
+const FEATURE_FLAGS_CONFIG_ID = 'feature-flags'
+const FEATURE_FLAGS = [
+    'purchaseEnabled',
+    'dataSpaceEnabled',
+    'catalogManagementEnabled',
+    'dspEnabled',
+    'quotesEnabled',
+    'tenderingEnabled',
+    'launchValidationEnabled',
+    'tenderDevButtonsOpenCloseEnabled'
+]
 
 // OAuth2 Came From Field
 const OAUTH2_CAME_FROM_FIELD = 'came_from_path';
@@ -61,7 +78,7 @@ const editParty = config.editParty == true;
 
 // Local auth method
 const auth = await authModule.auth(config.oauth2);
-    
+
 /////////////////////////////////////////////////////////////////////
 ////////////////////////// MONGOOSE CONFIG //////////////////////////
 /////////////////////////////////////////////////////////////////////
@@ -153,7 +170,11 @@ app.use(function(req, res, next) {
     'use strict';
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'HEAD, POST, GET, PATCH, PUT, OPTIONS, DELETE');
-    res.header('Access-Control-Allow-Headers', 'origin, content-type, X-Auth-Token, Tenant-ID, Authorization, X-Organization, x-terms-accepted');
+    res.header('Access-Control-Allow-Headers', 'origin, content-type, X-Auth-Token, Tenant-ID, Authorization, X-Organization, x-terms-accepted, ' + filteredPagination.TOKEN_HEADER_LOWER);
+    res.header('Access-Control-Expose-Headers', filteredPagination.TOKEN_HEADER_LOWER);
+    if (config.corsExposeRedirect) {
+        res.header('Access-Control-Expose-Headers', 'X-Redirect-URL');
+    }
 
     if (req.method == 'OPTIONS') {
         utils.log(logger, 'debug', req, 'CORS request');
@@ -423,9 +444,101 @@ app.all(config.logOutPath, function(req, res) {
 });
 
 // Config endpoint
-const fetchData = async () => { 
+const fetchData = async () => {
     result = await indexes.search('defaultcatalog', {})
     return (result.length === 0 || result.length > 1)? '' : result[0].default_id
+}
+
+const getDefaultSearchFilters = () => {
+    return {
+        primaryCategoriesMode: 'catalogFirstLevel',
+        primaryRootName: '',
+        filters: []
+    }
+}
+
+const normalizeSearchFilterDefaults = (searchFilters) => {
+    const normalized = Object.assign({}, searchFilters)
+
+    if (Array.isArray(searchFilters.filters)) {
+        normalized.filters = searchFilters.filters.map((filter) => {
+            if (filter == null || typeof filter !== 'object' || Array.isArray(filter)) {
+                return filter
+            }
+
+            if (filter.source !== 'categoryRoot') {
+                return filter
+            }
+
+            if (Object.prototype.hasOwnProperty.call(filter, 'offerFormPlacement')) {
+                return filter
+            }
+
+            return Object.assign({}, filter, {
+                offerFormPlacement: 'none'
+            })
+        })
+    }
+
+    return normalized
+}
+
+const fetchSearchFilters = async () => {
+    try {
+        const result = await indexes.search(SEARCH_FILTERS_COLLECTION, { id: SEARCH_FILTERS_CONFIG_ID, limit: 1 })
+
+        if (result.length === 0 || result[0].searchFilters == null || typeof result[0].searchFilters !== 'object') {
+            return getDefaultSearchFilters()
+        }
+
+        return normalizeSearchFilterDefaults(result[0].searchFilters)
+    } catch (e) {
+        return getDefaultSearchFilters()
+    }
+}
+
+const getDefaultFeatureFlags = () => {
+    return FEATURE_FLAGS.reduce((features, feature) => {
+        features[feature] = config[feature] === true
+        return features
+    }, {})
+}
+
+const normalizeFeatureFlagOverrides = (features) => {
+    if (features == null || typeof features !== 'object' || Array.isArray(features)) {
+        return {}
+    }
+
+    return FEATURE_FLAGS.reduce((overrides, feature) => {
+        if (typeof features[feature] === 'boolean') {
+            overrides[feature] = features[feature]
+        }
+        return overrides
+    }, {})
+}
+
+const applyFeatureFlags = (features) => {
+    FEATURE_FLAGS.forEach((feature) => {
+        config[feature] = features[feature]
+    })
+
+    return features
+}
+
+const fetchFeatureFlags = async () => {
+    const defaultFeatureFlags = getDefaultFeatureFlags()
+
+    try {
+        const result = await indexes.search(FEATURE_FLAGS_COLLECTION, { id: FEATURE_FLAGS_CONFIG_ID, limit: 1 })
+
+        if (result.length === 0 || result[0].features == null || typeof result[0].features !== 'object') {
+            return applyFeatureFlags(defaultFeatureFlags)
+        }
+
+        return applyFeatureFlags(Object.assign(defaultFeatureFlags, normalizeFeatureFlagOverrides(result[0].features)))
+    } catch (e) {
+        return applyFeatureFlags(defaultFeatureFlags)
+    }
 }
 
 //Remove failIfNotAuthenticated because they want non-logged users to also be able to give feedback
@@ -462,17 +575,18 @@ app.delete('/domeblog/:id',  authMiddleware.headerAuthentication, failIfNotAuthe
 
 
 config.defaultId = await fetchData()
+await fetchFeatureFlags()
+await admin.loadAnalyticsConfig()
+await admin.loadSearchConfig()
 app.get('/config', async (_, res) => {
     // Reload the defaultId if it has been during the operation
     config.defaultId = await fetchData()
+    const searchFilters = await fetchSearchFilters()
+    const featureFlags = await fetchFeatureFlags()
+    const analyticsConfig = await admin.loadAnalyticsConfig()
+    const searchConfig = await admin.loadSearchConfig()
 
     res.send({
-        ai: {
-            aiEnabled: config.aiEnabled ? config.aiEnabled : false,
-            aiApiKey: config.aiApiKey,
-            aiApiUrl: config.aiApiUrl,
-            aiSearchProfile: config.aiSearchProfile
-        },
         siop: {
             enabled: config.siop.enabled,
             isRedirection: config.siop.isRedirection,
@@ -496,7 +610,8 @@ app.get('/config', async (_, res) => {
         ticketingUrl: config.ticketingUrl,
         matomoId: config.matomoId,
         matomoUrl: config.matomoUrl,
-        searchEnabled: config.searchUrl != '',
+        googleTagManagerId: config.googleTagManagerId,
+        searchEnabled: searchConfig.searchUrl !== '',
         domeTrust: config.domeTrust,
         domeAbout: config.domeAbout,
         domeRegister: config.domeRegister,
@@ -505,20 +620,34 @@ app.get('/config', async (_, res) => {
         domeOnboardingGuidelines: config.domeOnboardingGuidelines,
         domeGuidelines: config.domeGuidelines,
         domePublish: config.domePublish,
-        purchaseEnabled: config.purchaseEnabled,
-        dataSpaceEnabled: config.dataSpaceEnabled,
+        purchaseEnabled: featureFlags.purchaseEnabled,
+        dataSpaceEnabled: featureFlags.dataSpaceEnabled,
+        catalogManagementEnabled: featureFlags.catalogManagementEnabled,
+        dspEnabled: featureFlags.dspEnabled,
         quoteApi: config.quoteApi,
         defaultId: config.defaultId,
         paymentGateway: config.paymentGateway,
-        analytics: config.analytics,
+        analytics: analyticsConfig.analytics,
+        analyticsEnabled: analyticsConfig.analyticsEnabled,
         theme: config.theme,
-        quotesEnabled: config.quoteEnabled,
-        tenderingEnabled: config.tenderingEnabled,
-        learUrl: config.learUrl
+        quotesEnabled: featureFlags.quotesEnabled,
+        tenderingEnabled: featureFlags.tenderingEnabled,
+        learUrl: config.learUrl,
+        launchValidationEnabled: featureFlags.launchValidationEnabled,
+        searchFilters: searchFilters,
+        tenderDevButtonsOpenCloseEnabled: featureFlags.tenderDevButtonsOpenCloseEnabled
     })
 })
 
 app.get('/stats', stats.getStats)
+app.get('/stats/provider/:organizationId', stats.getProviderStats)
+
+app.post('/analytics/guest-token', authMiddleware.headerAuthentication, authMiddleware.checkOrganizations, authMiddleware.setPartyObj, failIfNotAuthenticated, async (req, res, next) => {
+    await admin.loadAnalyticsConfig()
+    next()
+}, analytics.getGuestToken)
+
+app.get('/offering/:id/launch', authMiddleware.headerAuthentication, failIfNotAuthenticated, catalog.checkOfferingLaunch);
 
 /////////////////////////////////////////////////////////////////////
 /////////////////////////// SHOPPING CART ///////////////////////////
@@ -661,6 +790,34 @@ app.patch('/admin/uploadcertificate/:specId', authMiddleware.headerAuthenticatio
 
 app.post('/admin/defaultcatalog', authMiddleware.headerAuthentication, authMiddleware.checkOrganizations, authMiddleware.setPartyObj, (req, res) => {
     admin.updateDefaultCatalog(req, res)
+})
+
+app.post('/admin/defaultcatalog/create', authMiddleware.headerAuthentication, authMiddleware.checkOrganizations, authMiddleware.setPartyObj, (req, res) => {
+    admin.createDefaultCatalog(req, res)
+})
+
+app.patch('/config/filters', authMiddleware.headerAuthentication, authMiddleware.checkOrganizations, authMiddleware.setPartyObj, (req, res) => {
+    admin.updateSearchFiltersConfig(req, res)
+})
+
+app.patch('/config/features', authMiddleware.headerAuthentication, authMiddleware.checkOrganizations, authMiddleware.setPartyObj, (req, res) => {
+    admin.updateFeatureFlagsConfig(req, res)
+})
+
+app.get('/config/search', authMiddleware.headerAuthentication, authMiddleware.checkOrganizations, authMiddleware.setPartyObj, (req, res) => {
+    admin.getSearchConfig(req, res)
+})
+
+app.patch('/config/search', authMiddleware.headerAuthentication, authMiddleware.checkOrganizations, authMiddleware.setPartyObj, (req, res) => {
+    admin.updateSearchConfig(req, res)
+})
+
+app.get('/config/analytics', authMiddleware.headerAuthentication, authMiddleware.checkOrganizations, authMiddleware.setPartyObj, (req, res) => {
+    admin.getAnalyticsConfig(req, res)
+})
+
+app.patch('/config/analytics', authMiddleware.headerAuthentication, authMiddleware.checkOrganizations, authMiddleware.setPartyObj, (req, res) => {
+    admin.updateAnalyticsConfig(req, res)
 })
 
 app.get('/paymentInfo', authMiddleware.headerAuthentication, authMiddleware.checkOrganizations, authMiddleware.setPartyObj, (req, res) => {
