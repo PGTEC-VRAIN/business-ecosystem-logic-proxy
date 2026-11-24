@@ -1660,6 +1660,7 @@
       "_sort_name": "Name",
       "_sort_date": "Date",
       "_no_services": "No services available",
+
       "_no_options": "No options",
       "_not_found": "Provider not found",
       "_not_found_desc": "This provider page is unavailable or no longer exists.",
@@ -1900,6 +1901,7 @@
     "_owner": "Owner",
     "_description": "Description",
     "_how_it_works": "How it works",
+    "_usage_policies": "Usage policies",
     "_key_features": "Key Features",
     "_business_benefits": "Business Benefits",
     "_use_cases": "Use Cases",
@@ -1930,8 +1932,7 @@
     "_join_companies_using": "Join thousands of companies using {{ productName }}",
     "_join_marketplace": "Join DOME Marketplace",
     "_discover_more": "Discover more",
-    "_discover_more_subtitle": "Discover services tailored to your needs",
-    "_usage_policies": "Usage policies"
+    "_discover_more_subtitle": "Discover services tailored to your needs"
   },
   "CATALOGS": {
     "_all_catalogs": "All catalogues",
@@ -2281,6 +2282,7 @@
     "_description": "Description",
     "_general_info_desc": "Provide the basic identification details for your product, including its name, a brief overview, and visual assets.",
     "_product_image": "Product Image",
+    "_attachments": "Attachments",
     "_choose_files": "Choose files",
     "_or_drop_here": "or drag and drop here",
     "_image_formats": "SVG, PNG, JPG or GIF (max. 3MB)",
@@ -2325,6 +2327,7 @@
     "_usecase_name_placeholder": "Insert a use case name",
     "_usecase_desc_placeholder": "Describe the purpose and usage of this use case",
     "_save_usecase": "Save use case",
+    "_actions": "Actions",
     "_select_service_placeholder": "Digit or select a service specification",
     "_select_resource_placeholder": "Digit or select a resource specification",
     "_search_specs": "Search...",
@@ -2874,6 +2877,7 @@
     "_no_offer": "There's no offerings.",
     "_previous": "Previous step",
     "_previous_step": "Previous step",
+    "_cancel": "Cancel",
     "_next_step": "Next step",
     "_step_contract_definition": "Contract definition",
     "_contract_definition": "Contract definition",
@@ -3243,6 +3247,7 @@
     "_draft": "Draft",
     "_validated": "Validated",
     "_unpublished": "Unpublished",
+    "_retired": "Retired",
     "_deleted": "Deleted",
     "_archived": "Archived",
     "_edit": "Edit",
@@ -4055,5 +4060,48 @@
     "espacio_de_datos_de_confianza_cred": "Espacio de datos de confianza - CRED",
     "citcom_ai_logo": "CitCom.ai logo",
     "co_funded_by_the_european_union": "Co-funded by the European Union"
+  },
+  "MAS": {
+    "_vc": "VC",
+    "_vc_required_hint": "Requires a verifiable credential to invoke this agent",
+    "_skills": "Agent skills",
+    "_protocols": "Protocols",
+    "_mesh_live": "live",
+    "_mesh_aria": "Illustration of the agent network: an orchestrator exchanges A2A messages with the agents, discovers them through the ANP registry, checks verifiable credentials with the verifier and reaches data through MCP.",
+    "_vc_card_title": "Agent access credential",
+    "_vc_card_status": "signature verified · policy permit",
+    "_layers_eyebrow": "Protocol stack",
+    "_layers_title": "How the agents connect",
+    "_layers_text": "Four layers make every agent of the marketplace interoperable and accountable: messaging, discovery, tools and trust.",
+    "layers": {
+      "a2a": {
+        "_code": "A2A",
+        "_tag": "messaging",
+        "_title": "Agent-to-Agent",
+        "_text": "Agents expose an agent card with their skills and receive tasks over JSON-RPC, with streaming and task tracking.",
+        "_mono": "message/send · message/stream · tasks/*"
+      },
+      "anp": {
+        "_code": "ANP",
+        "_tag": "discovery",
+        "_title": "Agent Network Protocol",
+        "_text": "A registry of agent descriptions bound to DIDs lets orchestrators find the right agent for each step of a flow.",
+        "_mono": "did:wba · agent description · registry"
+      },
+      "mcp": {
+        "_code": "MCP",
+        "_tag": "tools",
+        "_title": "Model Context Protocol",
+        "_text": "Agents reach data and tools of the data space through MCP servers, read-only over NGSI-LD context brokers.",
+        "_mono": "tools/list · tools/call · NGSI-LD"
+      },
+      "vc": {
+        "_code": "VC",
+        "_tag": "trust",
+        "_title": "Verifiable credentials",
+        "_text": "Callers present a MachineCredential (OID4VC); the verifier checks it against the trusted issuers list and the gateway enforces the ODRL policy.",
+        "_mono": "OID4VP · TIL · ODRL · APISIX + OPA"
+      }
+    }
   }
 }

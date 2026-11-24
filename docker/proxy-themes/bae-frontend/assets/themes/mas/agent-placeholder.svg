@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" role="img" aria-label="AI agent">
+  <defs>
+    <radialGradient id="bg" cx=".5" cy=".45" r=".75">
+      <stop offset="0" stop-color="#151d3f"/>
+      <stop offset="1" stop-color="#070b18"/>
+    </radialGradient>
+    <linearGradient id="ln" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#a78bfa"/>
+    </linearGradient>
+  </defs>
+  <rect width="320" height="180" fill="url(#bg)"/>
+  <g stroke="#1e2a52" stroke-width="1">
+    <path d="M0 45h320M0 90h320M0 135h320M80 0v180M160 0v180M240 0v180"/>
+  </g>
+  <g stroke="url(#ln)" stroke-width="1.6" stroke-opacity=".8" fill="none">
+    <path d="M160 90 96 52M160 90l64-38M160 90l-70 44M160 90l72 42M96 52 52 84M224 52l46 30M90 134l-38-50M232 132l38-50"/>
+  </g>
+  <path d="M160 58 188 74v32l-28 16-28-16V74Z" fill="#0b1124" stroke="url(#ln)" stroke-width="2.5"/>
+  <circle cx="160" cy="90" r="9" fill="#34d399"/>
+  <g fill="#22d3ee"><circle cx="96" cy="52" r="5"/><circle cx="90" cy="134" r="5"/><circle cx="270" cy="82" r="4"/></g>
+  <g fill="#a78bfa"><circle cx="224" cy="52" r="5"/><circle cx="232" cy="132" r="5"/><circle cx="52" cy="84" r="4"/></g>
+</svg>

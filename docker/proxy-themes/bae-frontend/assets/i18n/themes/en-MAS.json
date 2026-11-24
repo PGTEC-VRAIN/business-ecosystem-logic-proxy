@@ -1,0 +1,126 @@
+{
+  "europeTrademark": "Funded by the European Union – NextGenerationEU.",
+  "HEADER": {
+    "_brand_title": "MAS",
+    "_brand_subtitle": "Agent marketplace",
+    "_marketplace": "MAS AGENT MARKETPLACE",
+    "_register_here": "Request access",
+    "_onboarding": "Sign up",
+    "_home": "Home",
+    "_browse": "Explore",
+    "_services": "Agents & services",
+    "_catalogs": "Provider catalogues",
+    "_browse_serv": "Explore agents"
+  },
+  "DASHBOARD": {
+    "_header": "The agent marketplace of the data space",
+    "_subheader": "Discover and contract AI agents in the data space. Every agent publishes its skills, speaks A2A, is found through the ANP registry and is invoked only with a verifiable credential under its ODRL policy.",
+    "_browse_serv": "Explore agents",
+    "_search": "Search",
+    "_search_ph": "Search agents by skill, provider or protocol...",
+    "landing": {
+      "_eyebrow": "Multi-agent marketplace",
+      "_visit_project": "Project website",
+      "_metrics": "Marketplace metrics",
+      "_verified_services": "agents & services published",
+      "_registered_providers": "registered providers",
+      "_search_label": "Find an agent",
+      "_search_hint": "Type to filter the categories below, or open the full list of agents and services.",
+      "_categories_title": "Browse by category",
+      "_all_services": "All agents & services",
+      "_featured_title": "Featured agents",
+      "_see_catalogue": "See all agents",
+      "_view_details": "View agent",
+      "_about_eyebrow": "How it works",
+      "_about_title": "Agents you can trust, contracted like any other data space asset",
+      "_about_text": "Providers publish their agents as TM Forum offerings: the agent card (skills and endpoint), the protocol and the access policy. Consumers contract them here and their own agents invoke them through the provider gateway, presenting a verifiable credential.",
+      "_benefit1_title": "Verified identity",
+      "_benefit1_text": "Each participant and each agent has a DID; access is granted with verifiable credentials (OID4VC) checked by the provider verifier.",
+      "_benefit2_title": "Policies that are enforced",
+      "_benefit2_text": "Every agent carries its ODRL policy and credential requirements; the gateway enforces them on each call (APISIX + OPA).",
+      "_benefit3_title": "Open agent protocols",
+      "_benefit3_text": "Agents talk A2A, are discovered through ANP and reach data and tools with MCP over NGSI-LD, so they compose into multi-agent flows.",
+      "_provider_eyebrow": "For agent providers",
+      "_provider_title": "Publish your agents in the data space",
+      "_provider_text": "Publish an agent card, set its ODRL policy and the credential its consumers must hold, and keep control of every invocation. If your organisation is not part of the data space yet, request access.",
+      "_includes": "Includes",
+      "_search_examples": [
+        "weather agent for Valencia",
+        "translation agent",
+        "summarization skill",
+        "agents with MCP tools"
+      ]
+    },
+    "_not_found": "No agents found"
+  },
+  "MAS": {
+    "_vc": "VC",
+    "_vc_required_hint": "Requires a verifiable credential to invoke this agent",
+    "_skills": "Agent skills",
+    "_protocols": "Protocols",
+    "_mesh_live": "live",
+    "_mesh_aria": "Illustration of the agent network: an orchestrator exchanges A2A messages with the agents, discovers them through the ANP registry, checks verifiable credentials with the verifier and reaches data through MCP.",
+    "_vc_card_title": "Agent access credential",
+    "_vc_card_status": "signature verified · policy permit",
+    "_layers_eyebrow": "Protocol stack",
+    "_layers_title": "How the agents connect",
+    "_layers_text": "Four layers make every agent of the marketplace interoperable and accountable: messaging, discovery, tools and trust.",
+    "layers": {
+      "a2a": {
+        "_code": "A2A",
+        "_tag": "messaging",
+        "_title": "Agent-to-Agent",
+        "_text": "Agents expose an agent card with their skills and receive tasks over JSON-RPC, with streaming and task tracking.",
+        "_mono": "message/send · message/stream · tasks/*"
+      },
+      "anp": {
+        "_code": "ANP",
+        "_tag": "discovery",
+        "_title": "Agent Network Protocol",
+        "_text": "A registry of agent descriptions bound to DIDs lets orchestrators find the right agent for each step of a flow.",
+        "_mono": "did:wba · agent description · registry"
+      },
+      "mcp": {
+        "_code": "MCP",
+        "_tag": "tools",
+        "_title": "Model Context Protocol",
+        "_text": "Agents reach data and tools of the data space through MCP servers, read-only over NGSI-LD context brokers.",
+        "_mono": "tools/list · tools/call · NGSI-LD"
+      },
+      "vc": {
+        "_code": "VC",
+        "_tag": "trust",
+        "_title": "Verifiable credentials",
+        "_text": "Callers present a MachineCredential (OID4VC); the verifier checks it against the trusted issuers list and the gateway enforces the ODRL policy.",
+        "_mono": "OID4VP · TIL · ODRL · APISIX + OPA"
+      }
+    }
+  },
+  "FOOTER": {
+    "_funding": "Funded by the European Union – NextGenerationEU.",
+    "_agreement": "Membership agreement (PDF)",
+    "_onboarding": "Onboarding portal",
+    "_project": "Project website",
+    "_copyright": "VRAIN · Universitat Politècnica de València",
+    "_mas_tagline": "Marketplace of AI agents for the multi-agent system of the data space: discover agents, check their policies and contract them with verifiable credentials.",
+    "_mas_build": "FIWARE BAE · TM Forum Open APIs"
+  },
+  "FEEDBACK": {
+    "_thanks": "Thank you for contacting the MAS Agent Marketplace.",
+    "_footer_title": "How would you rate your experience with the MAS Agent Marketplace?",
+    "_footer_improve": "How can we improve?"
+  },
+  "BRAND": {
+    "_services_subtitle": "Explore the AI agents and services published by the participants of the data space. Search by skill or keyword, or narrow the results by category.",
+    "_feedback_recommend": "Based on your recent experience, how likely are you to recommend the MAS Agent Marketplace to a colleague or a partner?",
+    "_feedback_improve": "How can we improve the MAS Agent Marketplace?",
+    "_verified": "Verified participant",
+    "_custom_price_plan": "This offer includes a custom price plan created outside the marketplace and entirely determined by the agent provider. The final price will be calculated after the product order is submitted to the provider.",
+    "_replication_marketplaces": "Define in which marketplaces of the ecosystem your agent offering might appear (marketplace operators might not publish your offering, depending on their business choices):",
+    "_replication_only": "Publish only in this marketplace: MAS",
+    "_replication_customers": "Define which customers of the ecosystem will see your agent offerings:"
+  },
+  "CATALOGS": {
+    "_choose": "Choose one of the agent catalogues of the data space providers"
+  }
+}

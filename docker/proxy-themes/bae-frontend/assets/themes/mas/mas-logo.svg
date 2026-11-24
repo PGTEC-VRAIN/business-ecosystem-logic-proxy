@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 252 56" role="img" aria-label="MAS Agent Marketplace">
+  <defs>
+    <linearGradient id="hex" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#a78bfa"/>
+    </linearGradient>
+    <linearGradient id="word" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#e0f7ff"/>
+      <stop offset="1" stop-color="#c4b5fd"/>
+    </linearGradient>
+  </defs>
+  <path d="M28 4 48.8 16v24L28 52 7.2 40V16Z" fill="#0b1124" stroke="url(#hex)" stroke-width="2.5"/>
+  <g stroke="#7dd3fc" stroke-width="1.6" stroke-opacity=".7">
+    <path d="M28 28 17 21.5M28 28l11-6.5M28 28v13M17 21.5 28 15l11 6.5"/>
+  </g>
+  <circle cx="28" cy="28" r="5" fill="#34d399"/>
+  <circle cx="17" cy="21.5" r="3.2" fill="#22d3ee"/>
+  <circle cx="39" cy="21.5" r="3.2" fill="#a78bfa"/>
+  <circle cx="28" cy="41" r="3.2" fill="#22d3ee"/>
+  <circle cx="28" cy="15" r="2.4" fill="#e0f7ff"/>
+  <text x="62" y="31" fill="url(#word)" font-family="'Space Grotesk','Segoe UI',system-ui,sans-serif" font-size="26" font-weight="700" letter-spacing="3">MAS</text>
+  <text x="124" y="31" fill="#22d3ee" font-family="'JetBrains Mono',ui-monospace,Menlo,monospace" font-size="14" font-weight="500">//</text>
+  <text x="62" y="47" fill="#94a3c8" font-family="'JetBrains Mono',ui-monospace,Menlo,monospace" font-size="10" letter-spacing="2.2">AGENT MARKETPLACE</text>
+</svg>
