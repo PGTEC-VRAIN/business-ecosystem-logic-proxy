@@ -92,6 +92,9 @@ git tag v1.2.3 && git push origin v1.2.3   # el workflow construye y publica la 
 - **Contract management:** la URL aparece en el perfil del vendedor.
 - **Avisos por correo** (`lib/notifications.js`, `lib/mailer.js`): solicitudes y cambios de estado de pedidos y resumen
   mensual. Desactivado por defecto; se activa con `BAE_LP_MAIL_ENABLED=true` y un SMTP (`BAE_LP_MAIL_*`).
+- **Sugerencia de políticas ODRL:** `POST /api/odrl/suggest` (autenticado, solo rol vendedor) valida la entrada y la reenvía
+  al servicio `odrl-suggest` (`ODRL_SUGGEST_URL`, por defecto `http://odrl-suggest.marketplace-v10.svc.cluster.local:8080`;
+  timeout 20 s, respuesta máx. 2 MiB). Devuelve niveles y políticas ODRL a partir de la agent card; errores 400/403/413/422/502/504.
 - **Tema PGTEC** (`BAE_LP_THEME=PGTEC`), idiomas es/en, logos y estilos (viven en el bundle del frontend).
 - **CI:** imagen en GHCR en lugar de Docker Hub/Quay. El workflow necesita el secreto `GHCR_PAT`.
 

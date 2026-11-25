@@ -31,6 +31,7 @@ const stats = require('./controllers/stats').stats();
 const analytics = require('./controllers/analytics').analytics();
 const payment = require('./controllers/payment').payment();
 const contactUs = require('./controllers/contactUs').contactUs();
+const odrlSuggest = require('./controllers/odrlSuggest').odrlSuggest();
 const compliance = require('./controllers/compliance').compliance;
 const url = require('url');
 const utils = require('./lib/utils');
@@ -646,6 +647,8 @@ app.post('/analytics/guest-token', authMiddleware.headerAuthentication, authMidd
     await admin.loadAnalyticsConfig()
     next()
 }, analytics.getGuestToken)
+
+app.post('/api/odrl/suggest', authMiddleware.headerAuthentication, authMiddleware.checkOrganizations, authMiddleware.setPartyObj, failIfNotAuthenticated, odrlSuggest.suggest);
 
 app.get('/offering/:id/launch', authMiddleware.headerAuthentication, failIfNotAuthenticated, catalog.checkOfferingLaunch);
 
