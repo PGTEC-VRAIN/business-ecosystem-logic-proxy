@@ -756,6 +756,10 @@ config.billingEngineUrl = process.env.BAE_LP_BILLING_ENGINE_URL || config.billin
 config.contactUsNotificationUrl = '';
 config.contactUsNotificationUrl = process.env.BAE_LP_CONTACT_US_NOTIFICATION_URL || config.contactUsNotificationUrl;
 
+// Servicio de sugerencia de politicas ODRL (tools/odrl_suggest del repositorio del MAS)
+config.odrlSuggestUrl = 'http://odrl-suggest.marketplace-v10.svc.cluster.local:8080';
+config.odrlSuggestUrl = process.env.ODRL_SUGGEST_URL || config.odrlSuggestUrl;
+
 config.domeRegistrationForm = '';
 config.domeRegistrationForm = process.env.BAE_LP_DOME_REGISTRATION_FORM || config.domeRegistrationForm;
 
