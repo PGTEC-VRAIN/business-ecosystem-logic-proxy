@@ -2202,6 +2202,7 @@
     "_desc": "Indica la agent card del agente y obtén niveles de acceso con sus políticas ODRL. Revísalas antes de aceptar: no se publica nada hasta que crees la especificación.",
     "_card_url": "URL de la agent card",
     "_seller_did": "DID del vendedor",
+    "_seller_did_from_profile": "Tomado del perfil de tu organización.",
     "_gateway": "Host de la pasarela del agente",
     "_mcp_tools": "Herramientas MCP (opcional)",
     "_mcp_tools_help": "Pega el JSON de tools/list (lista o {\"tools\": [...]}) para proponer niveles por herramienta. Sin herramientas se propone una única política de invocación.",

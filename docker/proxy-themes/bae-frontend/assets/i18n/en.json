@@ -2203,6 +2203,7 @@
     "_desc": "Enter the agent card and get access tiers with their ODRL policies. Review them before accepting: nothing is published until you create the specification.",
     "_card_url": "Agent card URL",
     "_seller_did": "Seller DID",
+    "_seller_did_from_profile": "Taken from your organization profile.",
     "_gateway": "Agent gateway host",
     "_mcp_tools": "MCP tools (optional)",
     "_mcp_tools_help": "Paste the tools/list JSON (a list or {\"tools\": [...]}) to propose per-tool tiers. Without tools a single invocation policy is proposed.",
